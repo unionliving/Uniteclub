@@ -1,0 +1,303 @@
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,900;1,400;1,600;1,700;1,900&family=Matrix+Mono:wght@400;500;600;700&display=swap');
+
+:root {
+  --bg: #000000;
+  --text: #ffffff;
+  --text-muted: #888888;
+  --grid-color: rgba(255, 255, 255, 0.1); 
+  --font-main: 'Montserrat', sans-serif;
+  --font-mono: 'Matrix Mono', monospace;
+}
+
+h1, h2, h3, h4, h5, h6, .section-title, .hero h1, .final-title, .logo, .footer-logo, .pillar-name {
+  font-family: 'Playfair Display', serif;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: var(--bg);
+  color: var(--text);
+  font-family: var(--font-main);
+  line-height: 1.2;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+a:hover {
+  color: var(--text);
+}
+
+.main-wrapper {
+  max-width: 1600px;
+  width: 100%;
+  margin: 0 auto;
+  position: relative;
+  min-height: 100vh;
+  padding-left: 144px;
+  padding-right: 144px;
+}
+
+/* Absolute grid overlay spanning the whole height, inset to match content padding */
+.grid-overlay {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 144px;
+  right: 144px;
+  display: grid;
+  grid-template-columns: repeat(8, minmax(0, 1fr));
+  pointer-events: none;
+  border-left: 1px solid var(--grid-color);
+  border-right: 1px solid var(--grid-color);
+  z-index: 0;
+  /* Fade from top and bottom to hide vertical lines in the header and footer sections */
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, transparent 80px, rgba(0,0,0,1) 250px, rgba(0,0,0,1) calc(100% - 400px), transparent calc(100% - 200px));
+  mask-image: linear-gradient(to bottom, transparent 0%, transparent 80px, rgba(0,0,0,1) 250px, rgba(0,0,0,1) calc(100% - 400px), transparent calc(100% - 200px));
+}
+
+.grid-overlay > div {
+  border-right: 1px solid var(--grid-color);
+}
+
+.grid-overlay > div:last-child {
+  border-right: none;
+}
+
+.content-container {
+  position: relative;
+  z-index: 1;
+}
+
+/* Text Switcher Animations */
+.switcher-container {
+  display: inline-block;
+  min-width: 20px;
+}
+
+.fade-in-up {
+  display: inline-block;
+  animation: fadeInUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* --- RESPONSIVE UTILITIES --- */
+@media (max-width: 768px) {
+  .main-wrapper {
+    padding-left: 24px;
+    padding-right: 24px;
+  }
+
+  .grid-overlay {
+    left: 24px;
+    right: 24px;
+    /* Reduce to 4 columns on mobile for a cleaner look */
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    border-left-color: rgba(255,255,255,0.02);
+    border-right-color: rgba(255,255,255,0.02);
+  }
+
+  /* Hide the 5th, 6th, 7th, 8th grid lines on mobile since we only have 4 columns */
+  .grid-overlay > div:nth-child(n+5) {
+    display: none;
+  }
+
+  /* Make vertical strips less bright on phones */
+  .grid-overlay > div {
+    border-right: 1px solid rgba(255,255,255,0.04);
+  }
+
+  /* Responsive utility classes for grid overrides */
+  .mobile-col-full {
+    grid-column: 1 / -1 !important;
+  }
+
+  .mobile-col-half {
+    grid-column: 1 / -1 !important;
+  }
+
+  .mobile-stack {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 32px !important;
+  }
+
+  .mobile-text-center {
+    text-align: center !important;
+  }
+
+  .mobile-pad-reduce {
+    padding-left: 20px !important;
+    padding-right: 20px !important;
+  }
+
+  .mobile-hide {
+    display: none !important;
+  }
+
+  .nav-links {
+    gap: 16px !important;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .nav-links a {
+    font-size: 0.95rem !important;
+  }
+}
+
+/* --- AUTHENTICATION CARDS --- */
+.auth-card {
+  background: var(--dark2);
+  padding: 60px 48px;
+  border-radius: 2rem;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  width: 100%;
+  max-width: 500px; /* Increased from 480px for a more spacious feel */
+  text-align: center;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+  margin: 40px auto; /* Centered horizontally */
+  box-sizing: border-box;
+}
+
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: 24px; /* Increased gap for better spacing */
+  text-align: left;
+  margin-bottom: 32px;
+}
+
+/* Premium, unified inputs for all auth forms */
+.auth-input {
+  width: 100%;
+  padding: 16px;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.04);
+  color: #fff;
+  outline: none;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 15px;
+  transition: all 0.3s ease;
+  box-sizing: border-box;
+}
+
+.auth-input:focus {
+  border-color: var(--pink);
+  background: rgba(255, 255, 255, 0.07);
+  box-shadow: 0 0 10px rgba(240, 20, 96, 0.15);
+}
+
+.auth-page-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 24px;
+  box-sizing: border-box;
+}
+
+@media (max-width: 480px) {
+  .auth-page-container {
+    padding: 30px 16px; /* Less horizontal padding on mobile to maximize card size */
+  }
+  .auth-card {
+    padding: 36px 20px; /* Reduced side padding so form inputs get more horizontal space */
+    border-radius: 1.5rem;
+    margin: 20px auto;
+  }
+  .auth-form {
+    gap: 20px;
+    margin-bottom: 24px;
+  }
+}
+
+/* --- PILLARS & PROJECT CARDS --- */
+.project-card-container {
+  border-radius: 12px;
+  overflow: hidden;
+  cursor: pointer;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  box-shadow: 0 -15px 40px rgba(0,0,0,0.25);
+  transition: transform 0.3s ease;
+}
+
+.project-card-header {
+  padding: 24px 40px 8px 40px;
+}
+
+.project-card-image-wrapper {
+  padding: 0 40px 32px 40px;
+  margin-top: -12px;
+}
+
+.project-card-image {
+  width: 100%;
+  max-height: 520px;
+  object-fit: cover;
+  display: block;
+  position: relative;
+  z-index: 1;
+  border-radius: 8px;
+}
+
+.sticky-card-wrapper {
+  margin-bottom: 0;
+  position: sticky;
+  top: 128px;
+  transform-origin: top center;
+  transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@media (max-width: 768px) {
+  .project-card-header {
+    padding: 16px 20px 8px 20px;
+  }
+  .project-card-image-wrapper {
+    padding: 0 20px 20px 20px;
+    margin-top: -8px;
+  }
+  .project-card-image {
+    max-height: 280px;
+  }
+  .sticky-card-wrapper {
+    top: 80px;
+  }
+}
+
+@media (max-width: 480px) {
+  .project-card-header {
+    padding: 12px 16px 6px 16px;
+  }
+  .project-card-image-wrapper {
+    padding: 0 16px 16px 16px;
+    margin-top: -4px;
+  }
+  .project-card-image {
+    max-height: 220px;
+  }
+}
