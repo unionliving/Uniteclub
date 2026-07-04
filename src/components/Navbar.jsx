@@ -124,7 +124,7 @@ export default function Navbar() {
           <div className="desktop-group" style={{ gap: '40px', alignItems: 'center' }}>
             <Link to="/" style={navLinkStyle} onMouseEnter={(e) => e.target.style.color = '#fff'} onMouseLeave={(e) => e.target.style.color = 'var(--text-muted)'}>Home</Link>
             <Link to="/calendar" style={navLinkStyle} onMouseEnter={(e) => e.target.style.color = '#fff'} onMouseLeave={(e) => e.target.style.color = 'var(--text-muted)'}>Full Calendar</Link>
-            <Link to="/our-story" style={navLinkStyle} onMouseEnter={(e) => e.target.style.color = '#fff'} onMouseLeave={(e) => e.target.style.color = 'var(--text-muted)'}>Our Story</Link>
+            {/* <Link to="/our-story" style={navLinkStyle} onMouseEnter={(e) => e.target.style.color = '#fff'} onMouseLeave={(e) => e.target.style.color = 'var(--text-muted)'}>Our Story</Link> */}
             <Link to="/contact" style={navLinkStyle} onMouseEnter={(e) => e.target.style.color = '#fff'} onMouseLeave={(e) => e.target.style.color = 'var(--text-muted)'}>Contact Us</Link>
             
             <div style={{ position: 'relative', marginLeft: '12px' }} ref={dropdownRef}>

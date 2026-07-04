@@ -276,7 +276,30 @@ export default function EventDetail() {
             borderRadius: '16px',
             padding: '32px'
           }}>
-            {isMixtape ? (
+            {!currentUser ? (
+              <div style={{ textAlign: 'center', display: 'flex', flexDirection: 'column', gap: '20px' }}>
+                <h3 style={{ fontSize: '1.3rem', fontWeight: 500, margin: 0 }}>Register for Event</h3>
+                <p style={{ fontSize: '1rem', color: 'var(--text-muted)', lineHeight: '1.5', margin: 0 }}>
+                  To reserve your spot or register for this experience, please sign in or create an account.
+                </p>
+                <button 
+                  onClick={() => transitionTo('/login', { state: { from: location.pathname } })}
+                  className="grad-btn"
+                  style={{ border: 'none', cursor: 'pointer', padding: '16px', fontSize: '16px', fontWeight: '600', width: '100%' }}
+                >
+                  Log In to Register
+                </button>
+                <div style={{ fontSize: '14px', color: 'var(--text-muted)' }}>
+                  Don't have an account?{' '}
+                  <button 
+                    onClick={() => transitionTo('/signup', { state: { from: location.pathname } })}
+                    style={{ background: 'none', border: 'none', color: '#fff', cursor: 'pointer', textDecoration: 'underline', padding: 0, fontSize: '14px' }}
+                  >
+                    Sign Up
+                  </button>
+                </div>
+              </div>
+            ) : isMixtape ? (
               <div style={{ textAlign: 'center', display: 'flex', flexDirection: 'column', gap: '20px' }}>
                 <h3 style={{ fontSize: '1.3rem', fontWeight: 500, margin: 0 }}>Register for Event</h3>
                 <a
@@ -339,7 +362,7 @@ export default function EventDetail() {
                   </button>
                 </form>
               </>
-            ) : currentUser ? (
+            ) : (
               <div style={{ textAlign: 'center', display: 'flex', flexDirection: 'column', gap: '20px' }}>
                 <h3 style={{ fontSize: '1.3rem', fontWeight: 500, margin: 0 }}>Become a Member</h3>
                 <p style={{ fontSize: '1rem', color: 'var(--text-muted)', lineHeight: '1.5', margin: 0 }}>
@@ -352,29 +375,6 @@ export default function EventDetail() {
                 >
                   Become a Member
                 </button>
-              </div>
-            ) : (
-              <div style={{ textAlign: 'center', display: 'flex', flexDirection: 'column', gap: '20px' }}>
-                <h3 style={{ fontSize: '1.3rem', fontWeight: 500, margin: 0 }}>Become a Member</h3>
-                <p style={{ fontSize: '1rem', color: 'var(--text-muted)', lineHeight: '1.5', margin: 0 }}>
-                  This experience is members-only. To reserve your spot, please become a member or sign in.
-                </p>
-                <button 
-                  onClick={() => transitionTo('/membership', { state: { from: location.pathname } })}
-                  className="grad-btn"
-                  style={{ border: 'none', cursor: 'pointer', padding: '16px', fontSize: '16px', fontWeight: '600', width: '100%' }}
-                >
-                  Become a Member
-                </button>
-                <div style={{ fontSize: '14px', color: 'var(--text-muted)' }}>
-                  Already a member?{' '}
-                  <button 
-                    onClick={() => transitionTo('/login', { state: { from: location.pathname } })}
-                    style={{ background: 'none', border: 'none', color: '#fff', cursor: 'pointer', textDecoration: 'underline', padding: 0, fontSize: '14px' }}
-                  >
-                    Log In
-                  </button>
-                </div>
               </div>
             )}
           </div>

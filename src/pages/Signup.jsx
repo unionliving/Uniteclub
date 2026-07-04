@@ -81,13 +81,13 @@ export default function Signup() {
     <div className="auth-page-container">
       <div className="auth-card">
         <h1 className="section-title" style={{ fontSize: '36px', marginBottom: '10px' }}>
-          Join{' '}
+
           <span style={{ 
             background: 'linear-gradient(to right, #f01460, #f42f4a, #fb531d)',
             WebkitBackgroundClip: 'text',
             WebkitTextFillColor: 'transparent',
             backgroundClip: 'text'
-          }}>Unite</span>
+          }}>Join Unite</span>
         </h1>
         <p style={{ color: 'rgba(255,255,255,0.6)', marginBottom: '30px', fontSize: '14px' }}>Create an account to start exploring.</p>
         

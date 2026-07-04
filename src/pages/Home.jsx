@@ -603,13 +603,37 @@ export default function Home() {
           </span>
         </h1>
       </section>
-
+      <div style={{ marginTop: '80px', display: 'flow-root' }}>
+        {cardsData.map((card, i) => {
+          // Calculate depth: how many active cards are stacked ON TOP of this one
+          const activeIndex = Math.max(0, stuckCount - 1);
+          const depth = Math.max(0, activeIndex - i);
+          
+          return (
+            <div 
+              key={card.title} 
+              ref={el => cardRefs.current[i] = el}
+              className="sticky-card-wrapper"
+              style={{ 
+                zIndex: i,
+                opacity: depth >= 2 ? 0.2 : 1, // Only fade when it is pushed back 2 levels
+                // Push older cards UP by 40px and shrink them by 5% per depth level
+                transform: `translateY(-${depth * 40}px) scale(${1 - depth * 0.05})` 
+              }}
+            >
+              <ProjectCard {...card} />
+            </div>
+          );
+        })}
+        {/* Adds 65vh of slack to the entire stack, allowing Card 6 to stay stuck for a comfortable scroll distance */}
+        <div style={{ height: '65vh', pointerEvents: 'none' }} />
+      </div>
 
 
       {/* EVENT CALENDAR SECTION */}
       <section 
         className="calendar-section"
-        style={{ marginTop: '40px', marginBottom: '80px' }}
+        style={{  marginBottom: '80px' }}
       >
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(8, minmax(0, 1fr))' }}>
           <div className="mobile-col-full" style={{ gridColumn: '1 / 9', display: 'flex', alignItems: 'center', marginBottom: '40px', color: 'var(--text-muted)' }}>
@@ -758,32 +782,6 @@ export default function Home() {
         </div>
       </section>
 
-      <div style={{ marginTop: '80px', display: 'flow-root' }}>
-        {cardsData.map((card, i) => {
-          // Calculate depth: how many active cards are stacked ON TOP of this one
-          const activeIndex = Math.max(0, stuckCount - 1);
-          const depth = Math.max(0, activeIndex - i);
-          
-          return (
-            <div 
-              key={card.title} 
-              ref={el => cardRefs.current[i] = el}
-              className="sticky-card-wrapper"
-              style={{ 
-                zIndex: i,
-                opacity: depth >= 2 ? 0.2 : 1, // Only fade when it is pushed back 2 levels
-                // Push older cards UP by 40px and shrink them by 5% per depth level
-                transform: `translateY(-${depth * 40}px) scale(${1 - depth * 0.05})` 
-              }}
-            >
-              <ProjectCard {...card} />
-            </div>
-          );
-        })}
-        {/* Adds 65vh of slack to the entire stack, allowing Card 6 to stay stuck for a comfortable scroll distance */}
-        <div style={{ height: '65vh', pointerEvents: 'none' }} />
-      </div>
-
       {/* Static Brands Section */}
       <section className="mobile-stack" style={{ 
         display: 'grid', 
@@ -927,7 +925,7 @@ export default function Home() {
           marginTop: '40px', // Spacing below the image
           zIndex: 3,
         }}>
-          <button 
+          {/*<button 
             onMouseEnter={() => setIsAboutHovered(true)}
             onMouseLeave={() => setIsAboutHovered(false)}
             onClick={() => navigate('/our-story')}
@@ -957,9 +955,9 @@ export default function Home() {
               strokeLinecap="square" 
               strokeLinejoin="miter"
             >
-              <path d="M3 21L23 1M11 1h12v12" /> {/* Always UP-RIGHT */}
+              <path d="M3 21L23 1M11 1h12v12" /> 
             </svg>
-          </button>
+          </button> */}
         </div>
       </section>
 
@@ -1055,7 +1053,7 @@ export default function Home() {
         <div style={{ display: 'flex', gap: '32px', color: 'var(--text-muted)' }}>
           <Link to="/" style={{ cursor: 'pointer', transition: 'color 0.2s ease', textDecoration: 'none', color: 'inherit' }} onMouseEnter={(e) => e.target.style.color = '#fff'} onMouseLeave={(e) => e.target.style.color = 'var(--text-muted)'}>home</Link>
           <Link to="/calendar" style={{ cursor: 'pointer', transition: 'color 0.2s ease', textDecoration: 'none', color: 'inherit' }} onMouseEnter={(e) => e.target.style.color = '#fff'} onMouseLeave={(e) => e.target.style.color = 'var(--text-muted)'}>full calendar</Link>
-          <Link to="/our-story" style={{ cursor: 'pointer', transition: 'color 0.2s ease', textDecoration: 'none', color: 'inherit' }} onMouseEnter={(e) => e.target.style.color = '#fff'} onMouseLeave={(e) => e.target.style.color = 'var(--text-muted)'}>our story</Link>
+          {/* <Link to="/our-story" style={{ cursor: 'pointer', transition: 'color 0.2s ease', textDecoration: 'none', color: 'inherit' }} onMouseEnter={(e) => e.target.style.color = '#fff'} onMouseLeave={(e) => e.target.style.color = 'var(--text-muted)'}>our story</Link> */}
           <Link to="/contact" style={{ cursor: 'pointer', transition: 'color 0.2s ease', textDecoration: 'none', color: 'inherit' }} onMouseEnter={(e) => e.target.style.color = '#fff'} onMouseLeave={(e) => e.target.style.color = 'var(--text-muted)'}>contact us</Link>
         </div>
 
