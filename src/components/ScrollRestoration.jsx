@@ -4,7 +4,7 @@ import { useLocation, useNavigationType } from 'react-router-dom';
 export default function ScrollRestoration() {
   const location = useLocation();
   const navType = useNavigationType();
-  const scrollPositions = useRef({}); // Keyed by pathname
+  const scrollPositions = useRef({}); 
   
   const lastPathname = useRef(location.pathname);
   const lastScrollY = useRef(0);
