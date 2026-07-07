@@ -992,7 +992,7 @@ export default function Home() {
           </h2>
         </div>
 
-        {/* Contact Me Button */}
+        {/* Contact Me button */}
         <div className="mobile-col-full" style={{ 
           gridColumn: '5 / 7', 
           alignSelf: 'start',
