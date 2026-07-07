@@ -1,8 +1,10 @@
+"use client";
 import React, { useState, useEffect } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
-import { supabase } from '../supabase';
-import { useAuth } from '../context/AuthContext';
-import '../index.css';
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import { supabase } from '../../supabase';
+import { useAuth } from '../../context/AuthContext';
+import '../../index.css';
 
 export default function ResetPassword() {
   const [password, setPassword] = useState('');
@@ -11,7 +13,7 @@ export default function ResetPassword() {
   const [success, setSuccess] = useState('');
   const [loading, setLoading] = useState(false);
   const { currentUser } = useAuth();
-  const navigate = useNavigate();
+  const router = useRouter();
 
   const getCleanErrorMessage = (err, defaultMsg = "Failed to reset password") => {
     if (!err) return defaultMsg;
@@ -59,7 +61,7 @@ export default function ResetPassword() {
       
       // Redirect to login after 3 seconds
       setTimeout(() => {
-        navigate('/login');
+        router.push('/login');
       }, 3000);
     } catch (err) {
       const errorMessage = getCleanErrorMessage(err, "Failed to update password. Your recovery link may be expired.");
@@ -151,7 +153,7 @@ export default function ResetPassword() {
         </form>
 
         <div style={{ textAlignment: 'center', marginTop: '20px' }}>
-          <Link to="/login" style={{ color: 'var(--pink)', textDecoration: 'none', fontWeight: '600', fontSize: '14px' }}>
+          <Link href="/login" style={{ color: 'var(--pink)', textDecoration: 'none', fontWeight: '600', fontSize: '14px' }}>
             Back to Login
           </Link>
         </div>

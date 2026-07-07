@@ -1,7 +1,9 @@
+"use client";
 import React, { useState } from 'react';
-import { Link, useNavigate, useLocation } from 'react-router-dom';
-import { useAuth } from '../context/AuthContext';
-import '../index.css';
+import Link from 'next/link';
+import { useRouter, usePathname } from 'next/navigation';
+import { useAuth } from '../../context/AuthContext';
+import '../../index.css';
 
 export default function Signup() {
   const [name, setName] = useState('');
@@ -10,8 +12,8 @@ export default function Signup() {
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
   const { signup, loginWithGoogle, loading } = useAuth();
-  const navigate = useNavigate();
-  const location = useLocation();
+  const router = useRouter();
+  const pathname = usePathname();
 
   const from = location.state?.from || '/';
 
@@ -27,7 +29,7 @@ export default function Signup() {
         setEmail('');
         setPassword('');
       } else {
-        navigate(from);
+        router.push(from);
       }
     } catch (err) {
       setSuccess('');
@@ -141,7 +143,7 @@ export default function Signup() {
         </button>
 
         <p style={{ marginTop: '30px', fontSize: '13px', color: 'rgba(255,255,255,0.5)' }}>
-          Already have an account? <Link to="/login" state={{ from }} style={{ color: 'var(--pink)', textDecoration: 'none', fontWeight: '600' }}>Sign In</Link>
+          Already have an account? <Link href="/login" state={{ from }} style={{ color: 'var(--pink)', textDecoration: 'none', fontWeight: '600' }}>Sign In</Link>
         </p>
       </div>
     </div>

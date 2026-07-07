@@ -1,11 +1,12 @@
+"use client";
 import React from 'react';
-import { useLocation } from 'react-router-dom';
+import { usePathname } from 'next/navigation';
 import Navbar from './Navbar';
 
 export default function Layout({ children }) {
-  const location = useLocation();
-  const isHome = location.pathname === '/';
-  const isMembership = location.pathname === '/membership';
+  const pathname = usePathname();
+  const isHome = pathname === '/';
+  const isMembership = pathname === '/membership';
 
   return (
     <div className="main-wrapper">

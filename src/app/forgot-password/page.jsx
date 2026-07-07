@@ -1,7 +1,8 @@
+"use client";
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { useAuth } from '../context/AuthContext';
-import '../index.css';
+import Link from 'next/link';
+import { useAuth } from '../../context/AuthContext';
+import '../../index.css';
 
 export default function ForgotPassword() {
   const [email, setEmail] = useState('');
@@ -82,7 +83,7 @@ export default function ForgotPassword() {
         </form>
 
         <div style={{ textAlign: 'center', marginTop: '20px' }}>
-          <Link to="/login" style={{ color: 'var(--pink)', textDecoration: 'none', fontWeight: '600', fontSize: '14px' }}>Back to Login</Link>
+          <Link href="/login" style={{ color: 'var(--pink)', textDecoration: 'none', fontWeight: '600', fontSize: '14px' }}>Back to Login</Link>
         </div>
       </div>
     </div>

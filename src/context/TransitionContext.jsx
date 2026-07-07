@@ -1,5 +1,6 @@
+"use client";
 import React, { createContext, useContext, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useRouter } from 'next/navigation';
 
 const TransitionContext = createContext();
 
@@ -12,13 +13,14 @@ export function useTransitionNavigate() {
 }
 
 export function TransitionProvider({ children }) {
-  const navigate = useNavigate();
+  const router = useRouter();
 
   const transitionTo = (url, options) => {
     if (typeof url === 'number') {
-      navigate(url);
+      if (url === -1) router.back();
+      // other number navigations are not directly supported by useRouter, just defaulting to push for now or ignored.
     } else {
-      navigate(url, options);
+      router.push(url);
     }
   };
 

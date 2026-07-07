@@ -1,7 +1,8 @@
+"use client";
 import React, { useEffect, useState } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useRouter, useParams } from 'next/navigation';
 import { ArrowLeft, CheckCircle2 } from 'lucide-react';
-import { useTransitionNavigate } from '../context/TransitionContext';
+import { useTransitionNavigate } from '../../../context/TransitionContext';
 
 const pillarData = {
   "declutter": {
@@ -102,7 +103,7 @@ const pillarData = {
 
 export default function Pillar() {
   const { id } = useParams();
-  const navigate = useNavigate();
+  const router = useRouter();
   const transitionTo = useTransitionNavigate();
   const [isVisible, setIsVisible] = useState(false);
   const data = pillarData[id];

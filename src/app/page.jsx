@@ -1,5 +1,7 @@
+"use client";
 import React, { useState, useEffect, useRef } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { ArrowRight } from 'lucide-react';
 import { useTransitionNavigate } from '../context/TransitionContext';
 import { useAuth } from '../context/AuthContext';
@@ -17,13 +19,13 @@ const loopWords = [...words, words[0]];
 
 const ProjectCard = ({ id, title, year, category, imageSrc, bgColor, textColor = '#111', imagePosition = 'center' }) => {
   const [isHovered, setIsHovered] = useState(false);
-  const navigate = useNavigate();
+  const router = useRouter();
 
   return (
     <div 
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
-      onClick={() => navigate(`/pillar/${id}`)}
+      onClick={() => router.push(`/pillar/${id}`)}
       className="project-card-container"
       style={{
         backgroundColor: bgColor,
@@ -99,7 +101,7 @@ const ProjectCard = ({ id, title, year, category, imageSrc, bgColor, textColor =
 };
 
 export default function Home() {
-  const navigate = useNavigate();
+  const router = useRouter();
   const transitionTo = useTransitionNavigate();
   const { currentUser, isMember } = useAuth();
   const [index, setIndex] = useState(0);
@@ -743,7 +745,7 @@ export default function Home() {
             <button 
               onMouseEnter={() => setIsBlogHovered(true)}
               onMouseLeave={() => setIsBlogHovered(false)}
-              onClick={() => navigate('/calendar')}
+              onClick={() => router.push('/calendar')}
               style={{
                 width: '100%',
                 backgroundColor: isBlogHovered ? '#fff' : 'transparent',
@@ -928,7 +930,7 @@ export default function Home() {
           {/*<button 
             onMouseEnter={() => setIsAboutHovered(true)}
             onMouseLeave={() => setIsAboutHovered(false)}
-            onClick={() => navigate('/our-story')}
+            onClick={() => router.push('/our-story')}
             style={{
             width: '100%',
             backgroundColor: isAboutHovered ? '#fff' : 'transparent',
@@ -1000,7 +1002,7 @@ export default function Home() {
           <button 
             onMouseEnter={() => setIsContactHovered(true)}
             onMouseLeave={() => setIsContactHovered(false)}
-            onClick={() => navigate('/contact')}
+            onClick={() => router.push('/contact')}
             style={{
             width: '100%',
             backgroundColor: isContactHovered ? '#fff' : 'transparent',
@@ -1051,10 +1053,10 @@ export default function Home() {
         </div>
         
         <div style={{ display: 'flex', gap: '32px', color: 'var(--text-muted)' }}>
-          <Link to="/" style={{ cursor: 'pointer', transition: 'color 0.2s ease', textDecoration: 'none', color: 'inherit' }} onMouseEnter={(e) => e.target.style.color = '#fff'} onMouseLeave={(e) => e.target.style.color = 'var(--text-muted)'}>home</Link>
-          <Link to="/calendar" style={{ cursor: 'pointer', transition: 'color 0.2s ease', textDecoration: 'none', color: 'inherit' }} onMouseEnter={(e) => e.target.style.color = '#fff'} onMouseLeave={(e) => e.target.style.color = 'var(--text-muted)'}>full calendar</Link>
-          {/* <Link to="/our-story" style={{ cursor: 'pointer', transition: 'color 0.2s ease', textDecoration: 'none', color: 'inherit' }} onMouseEnter={(e) => e.target.style.color = '#fff'} onMouseLeave={(e) => e.target.style.color = 'var(--text-muted)'}>our story</Link> */}
-          <Link to="/contact" style={{ cursor: 'pointer', transition: 'color 0.2s ease', textDecoration: 'none', color: 'inherit' }} onMouseEnter={(e) => e.target.style.color = '#fff'} onMouseLeave={(e) => e.target.style.color = 'var(--text-muted)'}>contact us</Link>
+          <Link href="/" style={{ cursor: 'pointer', transition: 'color 0.2s ease', textDecoration: 'none', color: 'inherit' }} onMouseEnter={(e) => e.target.style.color = '#fff'} onMouseLeave={(e) => e.target.style.color = 'var(--text-muted)'}>home</Link>
+          <Link href="/calendar" style={{ cursor: 'pointer', transition: 'color 0.2s ease', textDecoration: 'none', color: 'inherit' }} onMouseEnter={(e) => e.target.style.color = '#fff'} onMouseLeave={(e) => e.target.style.color = 'var(--text-muted)'}>full calendar</Link>
+          {/* <Link href="/our-story" style={{ cursor: 'pointer', transition: 'color 0.2s ease', textDecoration: 'none', color: 'inherit' }} onMouseEnter={(e) => e.target.style.color = '#fff'} onMouseLeave={(e) => e.target.style.color = 'var(--text-muted)'}>our story</Link> */}
+          <Link href="/contact" style={{ cursor: 'pointer', transition: 'color 0.2s ease', textDecoration: 'none', color: 'inherit' }} onMouseEnter={(e) => e.target.style.color = '#fff'} onMouseLeave={(e) => e.target.style.color = 'var(--text-muted)'}>contact us</Link>
         </div>
 
         <div style={{ display: 'flex', gap: '24px', color: 'var(--text-muted)' }}>

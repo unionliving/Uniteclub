@@ -1,12 +1,13 @@
+"use client";
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useRouter } from 'next/navigation';
 import { ArrowRight, ArrowLeft } from 'lucide-react';
-import { useAuth } from '../context/AuthContext';
-import { useTransitionNavigate } from '../context/TransitionContext';
-import '../index.css';
+import { useAuth } from '../../context/AuthContext';
+import { useTransitionNavigate } from '../../context/TransitionContext';
+import '../../index.css';
 
 export default function Calendar() {
-  const navigate = useNavigate();
+  const router = useRouter();
   const transitionTo = useTransitionNavigate();
   const { currentUser } = useAuth();
 

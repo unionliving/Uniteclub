@@ -1,5 +1,7 @@
+"use client";
 import React, { useState, useEffect, useRef } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { useAuth } from '../context/AuthContext';
 import { User, Menu, X } from 'lucide-react';
 
@@ -9,7 +11,7 @@ export default function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const dropdownRef = useRef(null);
   const { currentUser, isMember, logout } = useAuth();
-  const navigate = useNavigate();
+  const router = useRouter();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -51,7 +53,7 @@ export default function Navbar() {
       await logout();
       setIsDropdownOpen(false);
       setIsMobileMenuOpen(false);
-      navigate('/');
+      router.push('/');
     } catch (error) {
       console.error("Failed to log out", error);
     }
@@ -110,7 +112,7 @@ export default function Navbar() {
           flexWrap: 'wrap',
           gap: '16px'
         }}>
-          <Link to="/" className="brand-link" style={{ 
+          <Link href="/" className="brand-link" style={{ 
             fontWeight: '700', 
             fontSize: '2rem',
             color: 'var(--text)',
@@ -122,10 +124,10 @@ export default function Navbar() {
 
           {/* DESKTOP NAV */}
           <div className="desktop-group" style={{ gap: '40px', alignItems: 'center' }}>
-            <Link to="/" style={navLinkStyle} onMouseEnter={(e) => e.target.style.color = '#fff'} onMouseLeave={(e) => e.target.style.color = 'var(--text-muted)'}>Home</Link>
-            <Link to="/calendar" style={navLinkStyle} onMouseEnter={(e) => e.target.style.color = '#fff'} onMouseLeave={(e) => e.target.style.color = 'var(--text-muted)'}>Full Calendar</Link>
-            {/* <Link to="/our-story" style={navLinkStyle} onMouseEnter={(e) => e.target.style.color = '#fff'} onMouseLeave={(e) => e.target.style.color = 'var(--text-muted)'}>Our Story</Link> */}
-            <Link to="/contact" style={navLinkStyle} onMouseEnter={(e) => e.target.style.color = '#fff'} onMouseLeave={(e) => e.target.style.color = 'var(--text-muted)'}>Contact Us</Link>
+            <Link href="/" style={navLinkStyle} onMouseEnter={(e) => e.target.style.color = '#fff'} onMouseLeave={(e) => e.target.style.color = 'var(--text-muted)'}>Home</Link>
+            <Link href="/calendar" style={navLinkStyle} onMouseEnter={(e) => e.target.style.color = '#fff'} onMouseLeave={(e) => e.target.style.color = 'var(--text-muted)'}>Full Calendar</Link>
+            {/* <Link href="/our-story" style={navLinkStyle} onMouseEnter={(e) => e.target.style.color = '#fff'} onMouseLeave={(e) => e.target.style.color = 'var(--text-muted)'}>Our Story</Link> */}
+            <Link href="/contact" style={navLinkStyle} onMouseEnter={(e) => e.target.style.color = '#fff'} onMouseLeave={(e) => e.target.style.color = 'var(--text-muted)'}>Contact Us</Link>
             
             <div style={{ position: 'relative', marginLeft: '12px' }} ref={dropdownRef}>
               <button 
@@ -208,7 +210,7 @@ export default function Navbar() {
                   ) : (
                     <>
                       <Link 
-                        to="/login"
+                        href="/login"
                         onClick={() => setIsDropdownOpen(false)}
                         style={{
                           color: 'var(--text-muted)',
@@ -223,7 +225,7 @@ export default function Navbar() {
                         Login
                       </Link>
                       <Link 
-                        to="/signup"
+                        href="/signup"
                         onClick={() => setIsDropdownOpen(false)}
                         style={{
                           color: 'var(--text-muted)',
@@ -298,10 +300,10 @@ export default function Navbar() {
           gap: '12px',
           overflowY: 'auto'
         }} aria-modal="true" role="dialog">
-          <Link to="/" onClick={() => setIsMobileMenuOpen(false)} style={mobileLinkStyle}>Home</Link>
-          <Link to="/calendar" onClick={() => setIsMobileMenuOpen(false)} style={mobileLinkStyle}>Full Calendar</Link>
-          <Link to="/our-story" onClick={() => setIsMobileMenuOpen(false)} style={mobileLinkStyle}>Our Story</Link>
-          <Link to="/contact" onClick={() => setIsMobileMenuOpen(false)} style={mobileLinkStyle}>Contact Us</Link>
+          <Link href="/" onClick={() => setIsMobileMenuOpen(false)} style={mobileLinkStyle}>Home</Link>
+          <Link href="/calendar" onClick={() => setIsMobileMenuOpen(false)} style={mobileLinkStyle}>Full Calendar</Link>
+          <Link href="/our-story" onClick={() => setIsMobileMenuOpen(false)} style={mobileLinkStyle}>Our Story</Link>
+          <Link href="/contact" onClick={() => setIsMobileMenuOpen(false)} style={mobileLinkStyle}>Contact Us</Link>
           
           <div style={{ marginTop: '32px' }}>
             {currentUser ? (
@@ -347,7 +349,7 @@ export default function Navbar() {
             ) : (
               <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
                 <Link 
-                  to="/login"
+                  href="/login"
                   onClick={() => setIsMobileMenuOpen(false)}
                   style={{
                     width: '100%',
@@ -364,7 +366,7 @@ export default function Navbar() {
                   Login
                 </Link>
                 <Link 
-                  to="/signup"
+                  href="/signup"
                   onClick={() => setIsMobileMenuOpen(false)}
                   style={{
                     width: '100%',

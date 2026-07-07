@@ -1,12 +1,13 @@
+"use client";
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useRouter } from 'next/navigation';
 import { ArrowLeft } from 'lucide-react';
-import { useTransitionNavigate } from '../context/TransitionContext';
-import { supabase } from '../supabase';
-import '../index.css';
+import { useTransitionNavigate } from '../../context/TransitionContext';
+import { supabase } from '../../supabase';
+import '../../index.css';
 
 export default function Contact() {
-  const navigate = useNavigate();
+  const router = useRouter();
   const transitionTo = useTransitionNavigate();
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');

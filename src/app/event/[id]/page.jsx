@@ -1,9 +1,10 @@
+"use client";
 import React, { useState, useEffect } from 'react';
-import { useParams, useNavigate, useLocation } from 'react-router-dom';
+import { useRouter, useParams, usePathname } from 'next/navigation';
 import { ArrowLeft, Calendar as CalendarIcon, MapPin, CheckCircle2 } from 'lucide-react';
-import { supabase } from '../supabase';
-import { useAuth } from '../context/AuthContext';
-import { useTransitionNavigate } from '../context/TransitionContext';
+import { supabase } from '../../../supabase';
+import { useAuth } from '../../../context/AuthContext';
+import { useTransitionNavigate } from '../../../context/TransitionContext';
 
 const eventData = {
   "founder-mixer": {
@@ -85,9 +86,9 @@ const eventData = {
 
 export default function EventDetail() {
   const { id } = useParams();
-  const navigate = useNavigate();
+  const router = useRouter();
   const transitionTo = useTransitionNavigate();
-  const location = useLocation();
+  const pathname = usePathname();
   const { currentUser, isMember, checkingMembership } = useAuth();
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -283,7 +284,7 @@ export default function EventDetail() {
                   To reserve your spot or register for this experience, please sign in or create an account.
                 </p>
                 <button 
-                  onClick={() => transitionTo('/login', { state: { from: location.pathname } })}
+                  onClick={() => transitionTo('/login', { state: { from: pathname } })}
                   className="grad-btn"
                   style={{ border: 'none', cursor: 'pointer', padding: '16px', fontSize: '16px', fontWeight: '600', width: '100%' }}
                 >
@@ -292,7 +293,7 @@ export default function EventDetail() {
                 <div style={{ fontSize: '14px', color: 'var(--text-muted)' }}>
                   Don't have an account?{' '}
                   <button 
-                    onClick={() => transitionTo('/signup', { state: { from: location.pathname } })}
+                    onClick={() => transitionTo('/signup', { state: { from: pathname } })}
                     style={{ background: 'none', border: 'none', color: '#fff', cursor: 'pointer', textDecoration: 'underline', padding: 0, fontSize: '14px' }}
                   >
                     Sign Up
@@ -369,7 +370,7 @@ export default function EventDetail() {
                   You're signed in! However, this experience is members-only. Please explore membership to activate your club access.
                 </p>
                 <button 
-                  onClick={() => transitionTo('/membership', { state: { from: location.pathname } })}
+                  onClick={() => transitionTo('/membership', { state: { from: pathname } })}
                   className="grad-btn"
                   style={{ border: 'none', cursor: 'pointer', padding: '16px', fontSize: '16px', fontWeight: '600', width: '100%' }}
                 >

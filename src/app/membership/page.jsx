@@ -1,15 +1,16 @@
+"use client";
 import React, { useState, useEffect } from 'react';
 import { ArrowLeft, Check, ChevronDown, ChevronUp } from 'lucide-react';
-import { useLocation } from 'react-router-dom';
-import { useAuth } from '../context/AuthContext';
-import { useTransitionNavigate } from '../context/TransitionContext';
-import { supabase } from '../supabase';
-import '../index.css';
+import { usePathname } from 'next/navigation';
+import { useAuth } from '../../context/AuthContext';
+import { useTransitionNavigate } from '../../context/TransitionContext';
+import { supabase } from '../../supabase';
+import '../../index.css';
 
 export default function Membership() {
   const { currentUser } = useAuth();
   const transitionTo = useTransitionNavigate();
-  const location = useLocation();
+  const pathname = usePathname();
   const [activeFaq, setActiveFaq] = useState(null);
   const [showTermsModal, setShowTermsModal] = useState(false);
   const [membership, setMembership] = useState(null);

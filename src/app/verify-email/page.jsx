@@ -1,11 +1,12 @@
+"use client";
 import React, { useEffect, useState } from 'react';
-import { useAuth } from '../context/AuthContext';
-import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../../context/AuthContext';
+import { useRouter } from 'next/navigation';
 
 export default function VerifyEmail() {
   const { currentUser, reloadUser, logout } = useAuth();
   const [dotCount, setDotCount] = useState(0);
-  const navigate = useNavigate();
+  const router = useRouter();
 
   useEffect(() => {
     const interval = setInterval(async () => {
@@ -30,13 +31,13 @@ export default function VerifyEmail() {
   // If verified, navigate to home (this acts as a fallback, App.jsx should unmount this automatically)
   useEffect(() => {
     if (currentUser?.emailVerified) {
-      navigate('/');
+      router.push('/');
     }
   }, [currentUser, navigate]);
 
   const handleLogout = async () => {
     await logout();
-    navigate('/login');
+    router.push('/login');
   };
 
   return (

@@ -1,7 +1,8 @@
+"use client";
 import React, { useEffect, useRef, useState } from 'react';
 import { ArrowRight, ArrowLeft, Zap, MonitorSmartphone, Palette, Users, TrendingUp } from 'lucide-react';
-import { useNavigate } from 'react-router-dom';
-import '../index.css';
+import { useRouter } from 'next/navigation';
+import '../../index.css';
 
 // A simple hook to animate sections on scroll
 const useScrollFade = () => {
@@ -43,7 +44,7 @@ const FadeInSection = ({ children, delay = 0 }) => {
 };
 
 export default function OurStory() {
-  const navigate = useNavigate();
+  const router = useRouter();
 
   return (
     <div style={{ 
@@ -61,7 +62,7 @@ export default function OurStory() {
       <section className="mobile-stack" style={{ display: 'grid', gridTemplateColumns: 'repeat(8, minmax(0, 1fr))', marginBottom: '24px', padding: '0' }}>
         <div className="mobile-col-full" style={{ gridColumn: '1 / 9' }}>
           <button 
-            onClick={() => navigate('/')}
+            onClick={() => router.push('/')}
             style={{ 
               background: 'transparent', 
               border: 'none', 

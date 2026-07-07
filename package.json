@@ -4,14 +4,15 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build": "vite build",
-    "preview": "vite preview"
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
   },
   "devDependencies": {
-    "@vitejs/plugin-react": "^6.0.2",
-    "typescript": "~6.0.2",
-    "vite": "^8.0.12"
+    "@types/node": "26.1.0",
+    "@types/react": "19.2.17",
+    "typescript": "~6.0.2"
   },
   "dependencies": {
     "@react-oauth/google": "^0.13.5",
@@ -19,8 +20,8 @@
     "framer-motion": "^12.40.0",
     "jwt-decode": "^4.0.0",
     "lucide-react": "^1.17.0",
+    "next": "^16.2.10",
     "react": "^19.2.7",
-    "react-dom": "^19.2.7",
-    "react-router-dom": "^7.17.0"
+    "react-dom": "^19.2.7"
   }
 }

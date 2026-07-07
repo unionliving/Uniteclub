@@ -1,15 +1,17 @@
+"use client";
 import React, { useState } from 'react';
-import { Link, useNavigate, useLocation } from 'react-router-dom';
-import { useAuth } from '../context/AuthContext';
-import '../index.css';
+import Link from 'next/link';
+import { useRouter, usePathname } from 'next/navigation';
+import { useAuth } from '../../context/AuthContext';
+import '../../index.css';
 
 export default function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const { login, loginWithGoogle, loading } = useAuth();
-  const navigate = useNavigate();
-  const location = useLocation();
+  const router = useRouter();
+  const pathname = usePathname();
 
   const from = location.state?.from || '/';
 
@@ -18,7 +20,7 @@ export default function Login() {
     try {
       setError('');
       await login(email, password);
-      navigate(from);
+      router.push(from);
     } catch (err) {
       let errorMessage = "Failed to log in";
       
@@ -102,7 +104,7 @@ export default function Login() {
           />
           
           <div style={{ textAlign: 'right' }}>
-            <Link to="/forgot-password" style={{ color: 'var(--pink)', fontSize: '13px', textDecoration: 'none', fontWeight: '500' }}>Forgot Password?</Link>
+            <Link href="/forgot-password" style={{ color: 'var(--pink)', fontSize: '13px', textDecoration: 'none', fontWeight: '500' }}>Forgot Password?</Link>
           </div>
 
           <button disabled={loading} type="submit" className="grad-btn" style={{ border: 'none', cursor: 'pointer', padding: '16px', fontSize: '15px', fontWeight: '600', marginTop: '8px', borderRadius: '50px' }}>
@@ -127,7 +129,7 @@ export default function Login() {
         </button>
 
         <p style={{ marginTop: '30px', fontSize: '13px', color: 'rgba(255,255,255,0.5)' }}>
-          Don't have an account? <Link to="/signup" state={{ from }} style={{ color: 'var(--pink)', textDecoration: 'none', fontWeight: '600' }}>Sign Up</Link>
+          Don't have an account? <Link href="/signup" state={{ from }} style={{ color: 'var(--pink)', textDecoration: 'none', fontWeight: '600' }}>Sign Up</Link>
         </p>
       </div>
     </div>
