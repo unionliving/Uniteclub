@@ -5,11 +5,11 @@ import { useTransitionNavigate } from '../context/TransitionContext';
 import { useAuth } from '../context/AuthContext';
 
 const words = [
-  'Experiences',
-  'Creativity',
-  'Wellbeing',
-  'Learning',
-  'Meaningful'
+  'Experiences.',
+  'Creativity.',
+  'Wellbeing.',
+  'Learning.',
+  'Meaningful.'
 ];
 
 // Append the first word at the end to create a seamless looping effect
