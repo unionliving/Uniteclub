@@ -846,7 +846,7 @@ export default function Home() {
 
 
       {/* NEW ABOUT SECTION */}
-      <section 
+      {/*<section 
         ref={aboutRef}
         className="mobile-stack"
         style={{
@@ -856,7 +856,7 @@ export default function Home() {
           paddingBottom: '150px',
         }}
       >
-        {/* Left Side Text (Cols 1-4) */}
+        // Left Side Text (Cols 1-4) 
         <div className="mobile-col-full" style={{ 
           gridColumn: '1 / 5', 
           gridRow: '1',
@@ -879,8 +879,6 @@ export default function Home() {
             Redefining the way people live, connect, and grow. Housing is broken, so we are creating a win-win. By spotlighting the resident experience, our thoughtfully designed co-living homes offer community, convenience, and a place to truly thrive.
           </h2>
         </div>
-
-        {/* Right Side Image (Cols 6-9) - full width to right edge */}
         <div className="mobile-col-full mobile-pad-reduce" style={{ 
           gridColumn: '6 / 9', 
           gridRow: '1', 
@@ -902,8 +900,6 @@ export default function Home() {
               }}
             />
           </div>
-          
-          {/* Subtle crosshair at the bottom right */}
           <div style={{
             position: 'absolute',
             bottom: '-12px',
@@ -918,15 +914,15 @@ export default function Home() {
             <div style={{ position: 'absolute', left: '50%', top: 0, bottom: 0, width: '1px', backgroundColor: 'var(--grid-color)' }}></div>
             <div style={{ position: 'absolute', top: '4px', left: '4px', right: '4px', bottom: '4px', borderRadius: '50%', border: '1px solid var(--grid-color)' }}></div>
           </div>
-        </div>
+        </div> 
 
-        {/* Button (Cols 5-6, below the image) */}
+        // Button (Cols 5-6, below the image) 
         <div className="mobile-col-full" style={{ 
           gridColumn: '5 / 7', 
           gridRow: '2',
           marginTop: '40px', // Spacing below the image
           zIndex: 3,
-        }}>
+        }}> */}
           {/*<button 
             onMouseEnter={() => setIsAboutHovered(true)}
             onMouseLeave={() => setIsAboutHovered(false)}
