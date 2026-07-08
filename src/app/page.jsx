@@ -955,9 +955,9 @@ export default function Home() {
             >
               <path d="M3 21L23 1M11 1h12v12" /> 
             </svg>
-          </button> */}
+          </button>
         </div>
-      </section>
+      </section>*/}
 
       {/* SAY HELLO SECTION */}
       <section 
