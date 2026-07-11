@@ -86,12 +86,12 @@ export default function Navbar() {
       <style>{`
         .desktop-group { display: flex; }
         .mobile-hamburger { display: none; }
-        .nav-container-inner { padding: 20px 40px; position: relative; }
+        .nav-container-inner { padding: 0 40px 40px; position: relative; min-height: 100%; }
         .brand-link { position: relative; z-index: 2; }
         @media (max-width: 900px) {
           .desktop-group { display: none !important; }
-          .mobile-hamburger { display: flex !important; position: absolute; right: 20px; top: 12px; }
-          .nav-container-inner { padding: 12px 20px !important; justify-content: center !important; }
+          .mobile-hamburger { display: flex !important; position: absolute; right: 20px; top: 50%; transform: translateY(-50%); }
+          .nav-container-inner { padding: 0 20px !important; justify-content: center !important; }
           .brand-link { position: static; margin: 0 auto; }
         }
       `}</style>
