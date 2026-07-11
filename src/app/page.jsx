@@ -285,10 +285,7 @@ export default function Home() {
         left: 0,
         width: '100vw',
         height: '100vh',
-        backgroundImage: 'linear-gradient(rgba(0, 0, 0, 0.93), rgba(0, 0, 0, 0.93)), url("/group.jpeg")',
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-        backgroundAttachment: 'fixed',
+        backgroundColor: 'rgba(0, 0, 0, 0.93)',
         zIndex: -1,
         pointerEvents: 'none'
       }} />
@@ -595,7 +592,8 @@ export default function Home() {
                     WebkitBackgroundClip: 'text',
                     WebkitTextFillColor: 'transparent',
                     backgroundClip: 'text',
-                    paddingRight: '0.25em'
+                    paddingRight: '0.25em',
+                    fontStyle: 'italic'
                   }}>
                     {w}
                   </span>
@@ -1036,8 +1034,8 @@ export default function Home() {
         display: 'flex',
         justifyContent: 'space-between',
         alignItems: 'center',
-        paddingTop: '60px',
-        paddingBottom: '40px',
+        paddingTop: '0',
+        paddingBottom: '0',
         fontFamily: 'var(--font-mono)',
         fontSize: '1.2rem',
       }}>
