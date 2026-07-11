@@ -1030,15 +1030,24 @@ export default function Home() {
       </section>
 
       {/* FOOTER */}
-      <footer className="mobile-stack mobile-text-center" style={{
-        display: 'flex',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        paddingTop: '0',
-        paddingBottom: '0',
-        fontFamily: 'var(--font-mono)',
-        fontSize: '1.2rem',
+     <div style={{
+        width: '100vw',
+        position: 'relative',
+        left: '50%',
+        right: '50%',
+        marginLeft: '-50vw',
+        marginRight: '-50vw',
+        backgroundColor: 'rgba(0, 0, 0, 0.98)',
       }}>
+        <footer className="mobile-stack mobile-text-center footer-inner" style={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          paddingTop: '20px',
+          paddingBottom: '20px',
+          fontFamily: 'var(--font-mono)',
+          fontSize: '1.2rem',
+        }}>
         <div style={{ color: 'var(--text-muted)', textAlign: 'left' }}>
           UNITE
           <div style={{ fontSize: '0.8rem', marginTop: '6px', opacity: 0.6 }}>
