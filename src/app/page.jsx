@@ -574,9 +574,7 @@ export default function Home() {
                     WebkitBackgroundClip: 'text',
                     WebkitTextFillColor: 'transparent',
                     backgroundClip: 'text',
-                    paddingRight: '0.25em',
-                    fontStyle: 'italic',
-                    fontWeight: '550',
+                    paddingRight: '0.25em'
                   }}>
                     {w}
                   </span>
