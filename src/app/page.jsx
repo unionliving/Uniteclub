@@ -299,6 +299,13 @@ export default function Home() {
           padding-top: 20px;
           padding-bottom: 60px;
         }
+        .footer-inner {
+          max-width: 1600px;
+          margin: 0 auto;
+          padding-left: 144px;
+          padding-right: 144px;
+          width: 100%;
+        }
         .hero-subtitle {
           font-family: var(--font-mono);
           color: var(--text-muted);
@@ -480,6 +487,10 @@ export default function Home() {
         }
 
         @media (max-width: 768px) {
+          .footer-inner {
+            padding-left: 24px !important;
+            padding-right: 24px !important;
+          }
           .scroll-top-btn {
             bottom: 24px;
             right: 24px;
@@ -844,7 +855,7 @@ export default function Home() {
 
 
       {/* NEW ABOUT SECTION */}
-      {/*<section 
+      <section 
         ref={aboutRef}
         className="mobile-stack"
         style={{
@@ -854,7 +865,7 @@ export default function Home() {
           paddingBottom: '150px',
         }}
       >
-        // Left Side Text (Cols 1-4) 
+        {/* Left Side Text (Cols 1-4) */}
         <div className="mobile-col-full" style={{ 
           gridColumn: '1 / 5', 
           gridRow: '1',
@@ -877,6 +888,8 @@ export default function Home() {
             Redefining the way people live, connect, and grow. Housing is broken, so we are creating a win-win. By spotlighting the resident experience, our thoughtfully designed co-living homes offer community, convenience, and a place to truly thrive.
           </h2>
         </div>
+
+        {/* Right Side Image (Cols 6-9) - full width to right edge */}
         <div className="mobile-col-full mobile-pad-reduce" style={{ 
           gridColumn: '6 / 9', 
           gridRow: '1', 
@@ -898,6 +911,8 @@ export default function Home() {
               }}
             />
           </div>
+          
+          {/* Subtle crosshair at the bottom right */}
           <div style={{
             position: 'absolute',
             bottom: '-12px',
@@ -912,15 +927,15 @@ export default function Home() {
             <div style={{ position: 'absolute', left: '50%', top: 0, bottom: 0, width: '1px', backgroundColor: 'var(--grid-color)' }}></div>
             <div style={{ position: 'absolute', top: '4px', left: '4px', right: '4px', bottom: '4px', borderRadius: '50%', border: '1px solid var(--grid-color)' }}></div>
           </div>
-        </div> 
+        </div>
 
-        // Button (Cols 5-6, below the image) 
+        {/* Button (Cols 5-6, below the image) */}
         <div className="mobile-col-full" style={{ 
           gridColumn: '5 / 7', 
           gridRow: '2',
           marginTop: '40px', // Spacing below the image
           zIndex: 3,
-        }}> */}
+        }}>
           {/*<button 
             onMouseEnter={() => setIsAboutHovered(true)}
             onMouseLeave={() => setIsAboutHovered(false)}
@@ -953,9 +968,9 @@ export default function Home() {
             >
               <path d="M3 21L23 1M11 1h12v12" /> 
             </svg>
-          </button>
+          </button> */}
         </div>
-      </section>*/}
+      </section>
 
       {/* SAY HELLO SECTION */}
       <section 
@@ -1030,7 +1045,7 @@ export default function Home() {
       </section>
 
       {/* FOOTER */}
-     <div style={{
+      <div style={{
         width: '100vw',
         position: 'relative',
         left: '50%',
@@ -1048,29 +1063,30 @@ export default function Home() {
           fontFamily: 'var(--font-mono)',
           fontSize: '1.2rem',
         }}>
-        <div style={{ color: 'var(--text-muted)', textAlign: 'left' }}>
-          UNITE
-          <div style={{ fontSize: '0.8rem', marginTop: '6px', opacity: 0.6 }}>
-            © {new Date().getFullYear()} All rights reserved
+          <div style={{ color: 'var(--text-muted)', textAlign: 'left' }}>
+            UNITE
+            <div style={{ fontSize: '0.8rem', marginTop: '6px', opacity: 0.6 }}>
+              © {new Date().getFullYear()} All rights reserved
+            </div>
           </div>
-        </div>
-        
-        <div style={{ display: 'flex', gap: '32px', color: 'var(--text-muted)' }}>
-          <Link href="/" style={{ cursor: 'pointer', transition: 'color 0.2s ease', textDecoration: 'none', color: 'inherit' }} onMouseEnter={(e) => e.target.style.color = '#fff'} onMouseLeave={(e) => e.target.style.color = 'var(--text-muted)'}>home</Link>
-          <Link href="/calendar" style={{ cursor: 'pointer', transition: 'color 0.2s ease', textDecoration: 'none', color: 'inherit' }} onMouseEnter={(e) => e.target.style.color = '#fff'} onMouseLeave={(e) => e.target.style.color = 'var(--text-muted)'}>full calendar</Link>
-          {/* <Link href="/our-story" style={{ cursor: 'pointer', transition: 'color 0.2s ease', textDecoration: 'none', color: 'inherit' }} onMouseEnter={(e) => e.target.style.color = '#fff'} onMouseLeave={(e) => e.target.style.color = 'var(--text-muted)'}>our story</Link> */}
-          <Link href="/contact" style={{ cursor: 'pointer', transition: 'color 0.2s ease', textDecoration: 'none', color: 'inherit' }} onMouseEnter={(e) => e.target.style.color = '#fff'} onMouseLeave={(e) => e.target.style.color = 'var(--text-muted)'}>contact us</Link>
-        </div>
+          
+          <div style={{ display: 'flex', gap: '32px', color: 'var(--text-muted)' }}>
+            <Link href="/" style={{ cursor: 'pointer', transition: 'color 0.2s ease', textDecoration: 'none', color: 'inherit' }} onMouseEnter={(e) => e.target.style.color = '#fff'} onMouseLeave={(e) => e.target.style.color = 'var(--text-muted)'}>home</Link>
+            <Link href="/calendar" style={{ cursor: 'pointer', transition: 'color 0.2s ease', textDecoration: 'none', color: 'inherit' }} onMouseEnter={(e) => e.target.style.color = '#fff'} onMouseLeave={(e) => e.target.style.color = 'var(--text-muted)'}>full calendar</Link>
+            {/* <Link href="/our-story" style={{ cursor: 'pointer', transition: 'color 0.2s ease', textDecoration: 'none', color: 'inherit' }} onMouseEnter={(e) => e.target.style.color = '#fff'} onMouseLeave={(e) => e.target.style.color = 'var(--text-muted)'}>our story</Link> */}
+            <Link href="/contact" style={{ cursor: 'pointer', transition: 'color 0.2s ease', textDecoration: 'none', color: 'inherit' }} onMouseEnter={(e) => e.target.style.color = '#fff'} onMouseLeave={(e) => e.target.style.color = 'var(--text-muted)'}>contact us</Link>
+          </div>
 
-        <div style={{ display: 'flex', gap: '24px', color: 'var(--text-muted)' }}>
-          <a href="https://www.youtube.com/@unioncoliving" target="_blank" rel="noopener noreferrer" style={{ color: 'inherit', display: 'flex', transition: 'color 0.2s ease' }} onMouseEnter={(e) => e.currentTarget.style.color = '#fff'} onMouseLeave={(e) => e.currentTarget.style.color = 'var(--text-muted)'}>
-            <svg style={{ cursor: 'pointer' }} width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33 2.78 2.78 0 0 0 1.94 2c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.33 29 29 0 0 0-.46-5.33z"></path><polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"></polygon></svg>
-          </a>
-          <a href="https://www.instagram.com/union_living/?hl=en" target="_blank" rel="noopener noreferrer" style={{ color: 'inherit', display: 'flex', transition: 'color 0.2s ease' }} onMouseEnter={(e) => e.currentTarget.style.color = '#fff'} onMouseLeave={(e) => e.currentTarget.style.color = 'var(--text-muted)'}>
-            <svg style={{ cursor: 'pointer' }} width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
-          </a>
-        </div>
-      </footer>
+          <div style={{ display: 'flex', gap: '24px', color: 'var(--text-muted)' }}>
+            <a href="https://www.youtube.com/@unioncoliving" target="_blank" rel="noopener noreferrer" style={{ color: 'inherit', display: 'flex', transition: 'color 0.2s ease' }} onMouseEnter={(e) => e.currentTarget.style.color = '#fff'} onMouseLeave={(e) => e.currentTarget.style.color = 'var(--text-muted)'}>
+              <svg style={{ cursor: 'pointer' }} width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33 2.78 2.78 0 0 0 1.94 2c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.33 29 29 0 0 0-.46-5.33z"></path><polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"></polygon></svg>
+            </a>
+            <a href="https://www.instagram.com/union_living/?hl=en" target="_blank" rel="noopener noreferrer" style={{ color: 'inherit', display: 'flex', transition: 'color 0.2s ease' }} onMouseEnter={(e) => e.currentTarget.style.color = '#fff'} onMouseLeave={(e) => e.currentTarget.style.color = 'var(--text-muted)'}>
+              <svg style={{ cursor: 'pointer' }} width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+            </a>
+          </div>
+        </footer>
+      </div>
       
       {showScrollTop && (
         <button 
