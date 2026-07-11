@@ -9,20 +9,22 @@ export default function Layout({ children }) {
   const isMembership = pathname === '/membership';
 
   return (
-    <div className="main-wrapper">
-      {/* 8 column grid background (hidden on home page & membership page) */}
-      {!(isHome || isMembership) && (
-        <div className="grid-overlay">
-          <div/><div/><div/><div/><div/><div/><div/><div/>
+    <>
+      <Navbar />
+      <div className="main-wrapper">
+        {/* 8 column grid background (hidden on home page & membership page) */}
+        {!(isHome || isMembership) && (
+          <div className="grid-overlay">
+            <div/><div/><div/><div/><div/><div/><div/><div/>
+          </div>
+        )}
+        
+        <div className="content-container">
+          <main>
+            {children}
+          </main>
         </div>
-      )}
-      
-      <div className="content-container">
-        <Navbar />
-        <main>
-          {children}
-        </main>
       </div>
-    </div>
+    </>
   );
 }
