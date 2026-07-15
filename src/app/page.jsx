@@ -7,11 +7,11 @@ import { useTransitionNavigate } from '../context/TransitionContext';
 import { useAuth } from '../context/AuthContext';
 
 const words = [
-  'Experiences.',
-  'Creativity.',
-  'Wellbeing.',
-  'Learning.',
-  'Meaningful.'
+'Events.',
+'Workshops.',
+'Wellness.',
+'Learning.',
+'Creativity.'
 ];
 
 // Append the first word at the end to create a seamless looping effect
@@ -457,6 +457,13 @@ export default function Home() {
           }
         }
 
+        @media (max-width: 1024px) {
+          .footer-inner {
+            padding-left: 64px !important;
+            padding-right: 64px !important;
+          }
+        }
+
         @media (max-width: 768px) {
           .footer-inner {
             padding-left: 24px !important;
@@ -501,7 +508,7 @@ export default function Home() {
       `}</style>
       <section className="hero-section">
         <div className="hero-subtitle">
-          FIND YOUR PEOPLE
+         
         </div>
 
         <div style={{ marginBottom: '24px', display: 'flex' }}>
@@ -526,7 +533,7 @@ export default function Home() {
               gap: '12px'
             }}
           >
-            {isMember ? 'member dashboard' : 'become a member'}
+            {isMember ? 'member dashboard' : 'Request Membership'}
             <svg 
               width="20" 
               height="20" 
@@ -547,8 +554,8 @@ export default function Home() {
         </div>
         
         <h1 className="hero-title">
-          <span>A members-only social</span>
-          <span>club built around</span>
+          <span>Curated experiences.</span>
+          <span>Exclusively for members.</span>
           
           <span>
             <span style={{ 
@@ -574,7 +581,9 @@ export default function Home() {
                     WebkitBackgroundClip: 'text',
                     WebkitTextFillColor: 'transparent',
                     backgroundClip: 'text',
-                    paddingRight: '0.25em'
+                    paddingRight: '0.25em',
+                    fontStyle: 'italic',
+                    fontWeight: '550',
                   }}>
                     {w}
                   </span>
@@ -1042,10 +1051,10 @@ export default function Home() {
           </div>
           
           <div style={{ display: 'flex', gap: '32px', color: 'var(--text-muted)' }}>
-            <Link href="/" style={{ cursor: 'pointer', transition: 'color 0.2s ease', textDecoration: 'none', color: 'inherit' }} onMouseEnter={(e) => e.target.style.color = '#fff'} onMouseLeave={(e) => e.target.style.color = 'var(--text-muted)'}>home</Link>
-            <Link href="/calendar" style={{ cursor: 'pointer', transition: 'color 0.2s ease', textDecoration: 'none', color: 'inherit' }} onMouseEnter={(e) => e.target.style.color = '#fff'} onMouseLeave={(e) => e.target.style.color = 'var(--text-muted)'}>full calendar</Link>
+            <Link href="/" style={{ cursor: 'pointer', transition: 'color 0.2s ease', textDecoration: 'none', color: 'inherit' }} onMouseEnter={(e) => e.target.style.color = '#fff'} onMouseLeave={(e) => e.target.style.color = 'var(--text-muted)'}>EXPLORE</Link>
+            <Link href="/calendar" style={{ cursor: 'pointer', transition: 'color 0.2s ease', textDecoration: 'none', color: 'inherit' }} onMouseEnter={(e) => e.target.style.color = '#fff'} onMouseLeave={(e) => e.target.style.color = 'var(--text-muted)'}>THE DROP</Link>
             {/* <Link href="/our-story" style={{ cursor: 'pointer', transition: 'color 0.2s ease', textDecoration: 'none', color: 'inherit' }} onMouseEnter={(e) => e.target.style.color = '#fff'} onMouseLeave={(e) => e.target.style.color = 'var(--text-muted)'}>our story</Link> */}
-            <Link href="/contact" style={{ cursor: 'pointer', transition: 'color 0.2s ease', textDecoration: 'none', color: 'inherit' }} onMouseEnter={(e) => e.target.style.color = '#fff'} onMouseLeave={(e) => e.target.style.color = 'var(--text-muted)'}>contact us</Link>
+            <Link href="/contact" style={{ cursor: 'pointer', transition: 'color 0.2s ease', textDecoration: 'none', color: 'inherit' }} onMouseEnter={(e) => e.target.style.color = '#fff'} onMouseLeave={(e) => e.target.style.color = 'var(--text-muted)'}>CONTACT</Link>
           </div>
 
           <div style={{ display: 'flex', gap: '24px', color: 'var(--text-muted)' }}>

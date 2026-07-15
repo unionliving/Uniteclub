@@ -11,7 +11,7 @@ export default function Membership() {
   const { currentUser } = useAuth();
   const transitionTo = useTransitionNavigate();
   const pathname = usePathname();
-  const [activeFaq, setActiveFaq] = useState(null);
+  const [activeFaqs, setActiveFaqs] = useState({});
   const [showTermsModal, setShowTermsModal] = useState(false);
   const [membership, setMembership] = useState(null);
   const [loadingMembership, setLoadingMembership] = useState(true);
@@ -54,7 +54,10 @@ export default function Membership() {
   }, [currentUser]);
 
   const toggleFaq = (index) => {
-    setActiveFaq(activeFaq === index ? null : index);
+    setActiveFaqs(prev => ({
+      ...prev,
+      [index]: !prev[index]
+    }));
   };
 
   const loadRazorpayScript = () => {
@@ -414,7 +417,7 @@ export default function Membership() {
           
           <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
             {faqs.map((faq, idx) => {
-              const isOpen = activeFaq === idx;
+              const isOpen = !!activeFaqs[idx];
               return (
                 <div 
                   key={idx} 

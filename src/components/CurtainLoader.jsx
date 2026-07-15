@@ -1,3 +1,4 @@
+"use client";
 import React, { useEffect, useState } from 'react';
 
 export default function CurtainLoader({ onComplete }) {
@@ -5,12 +6,10 @@ export default function CurtainLoader({ onComplete }) {
   const [removed, setRemoved] = useState(false);
 
   useEffect(() => {
-    // Start sliding up after 1.8 seconds (giving hello animation time to complete)
     const slideTimeout = setTimeout(() => {
       setSlide(true);
     }, 1800);
 
-    // Call onComplete after transition finishes (2.8 seconds total)
     const completeTimeout = setTimeout(() => {
       setRemoved(true);
       if (onComplete) onComplete();

@@ -103,6 +103,13 @@ a:hover {
 }
 
 /* --- RESPONSIVE UTILITIES --- */
+@media (max-width: 1024px) {
+  .main-wrapper {
+    padding-left: 64px;
+    padding-right: 64px;
+  }
+}
+
 @media (max-width: 768px) {
   .main-wrapper {
     padding-left: 24px;

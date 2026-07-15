@@ -94,6 +94,9 @@ export default function Navbar() {
           width: 100%;
         }
         .brand-link { position: relative; z-index: 2; }
+        @media (max-width: 1024px) {
+          .nav-container-inner { padding: 20px 64px !important; }
+        }
         @media (max-width: 900px) {
           .desktop-group { display: none !important; }
           .mobile-hamburger { display: flex !important; position: absolute; right: 24px; top: 50%; transform: translateY(-50%); }
@@ -133,10 +136,10 @@ export default function Navbar() {
 
           {/* DESKTOP NAV */}
           <div className="desktop-group" style={{ gap: '40px', alignItems: 'center' }}>
-            <Link href="/" style={navLinkStyle} onMouseEnter={(e) => e.target.style.color = '#fff'} onMouseLeave={(e) => e.target.style.color = 'var(--text-muted)'}>Home</Link>
-            <Link href="/calendar" style={navLinkStyle} onMouseEnter={(e) => e.target.style.color = '#fff'} onMouseLeave={(e) => e.target.style.color = 'var(--text-muted)'}>Full Calendar</Link>
+            <Link href="/" style={navLinkStyle} onMouseEnter={(e) => e.target.style.color = '#fff'} onMouseLeave={(e) => e.target.style.color = 'var(--text-muted)'}>EXPLORE</Link>
+            <Link href="/calendar" style={navLinkStyle} onMouseEnter={(e) => e.target.style.color = '#fff'} onMouseLeave={(e) => e.target.style.color = 'var(--text-muted)'}>THE DROP</Link>
             {/* <Link href="/our-story" style={navLinkStyle} onMouseEnter={(e) => e.target.style.color = '#fff'} onMouseLeave={(e) => e.target.style.color = 'var(--text-muted)'}>Our Story</Link> */}
-            <Link href="/contact" style={navLinkStyle} onMouseEnter={(e) => e.target.style.color = '#fff'} onMouseLeave={(e) => e.target.style.color = 'var(--text-muted)'}>Contact Us</Link>
+            <Link href="/contact" style={navLinkStyle} onMouseEnter={(e) => e.target.style.color = '#fff'} onMouseLeave={(e) => e.target.style.color = 'var(--text-muted)'}>CONTACT</Link>
             
             <div style={{ position: 'relative', marginLeft: '12px' }} ref={dropdownRef}>
               <button 
