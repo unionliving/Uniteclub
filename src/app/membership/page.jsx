@@ -1,10 +1,12 @@
 "use client";
 import React, { useState } from 'react';
-import { MessageCircle, ChevronDown, ChevronUp } from 'lucide-react';
+import { MessageCircle, ChevronDown, ChevronUp, ArrowLeft } from 'lucide-react';
 import '../../index.css';
 import { supabase } from '../../lib/supabase';
+import { useTransitionNavigate } from '../../context/TransitionContext';
 
 export default function Membership() {
+  const transitionTo = useTransitionNavigate();
   const [activeFaqs, setActiveFaqs] = useState({});
   const [email, setEmail] = useState('');
   const [loading, setLoading] = useState(false);
@@ -92,34 +94,42 @@ export default function Membership() {
     <div style={{ 
       minHeight: '100vh', 
       color: '#fff',
+      width: '100vw',
+      left: '50%',
+      right: '50%',
+      marginLeft: '-50vw',
+      marginRight: '-50vw',
       position: 'relative',
       fontFamily: 'var(--font-sans)',
-      paddingBottom: '100px'
+      paddingBottom: '100px',
+      backgroundImage: 'linear-gradient(to bottom, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0.85) 40%, rgba(0,0,0,0.95) 100%), url(/membership-bg.jpeg)',
+      backgroundSize: 'cover',
+      backgroundPosition: 'top center',
+      backgroundRepeat: 'no-repeat'
     }}>
-      {/* Background Image with Overlay */}
-      <div style={{
-        position: 'fixed',
-        top: 0,
-        left: 0,
-        right: 0,
-        bottom: 0,
-        backgroundImage: 'url(/group.jpeg)',
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-        zIndex: -2
-      }} />
-      <div style={{
-        position: 'fixed',
-        top: 0,
-        left: 0,
-        right: 0,
-        bottom: 0,
-        background: 'linear-gradient(to bottom, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0.85) 40%, rgba(0,0,0,0.95) 100%)',
-        zIndex: -1
-      }} />
 
-      <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '60px 24px', textAlign: 'center' }}>
+      <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '60px 24px', textAlign: 'center', position: 'relative' }}>
         
+        {/* Back Arrow */}
+        <button 
+          onClick={() => transitionTo('/')} 
+          style={{ 
+            background: 'none', 
+            border: 'none', 
+            color: '#fff', 
+            cursor: 'pointer', 
+            padding: '0 0 24px 0', 
+            display: 'flex', 
+            alignItems: 'center',
+            position: 'absolute',
+            top: '60px',
+            left: '24px',
+            zIndex: 10
+          }}
+        >
+          <ArrowLeft size={28} />
+        </button>
+
         {/* Top Icons */}
         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginBottom: '40px' }}>
           <img src="/Unite-logo.png" alt="Unite Logo" style={{ height: '90px', width: 'auto', marginBottom: '0px', display: 'block' }} />
@@ -129,28 +139,29 @@ export default function Membership() {
         {/* Hero Section */}
         <h1 style={{ 
           fontFamily: 'var(--font-main), Montserrat, sans-serif',
-          fontSize: 'clamp(1.4rem, 3.5vw, 2.8rem)', 
+          fontSize: 'clamp(1.8rem, 5vw, 3.5rem)', 
           fontWeight: '900', 
-          lineHeight: '1.1',
+          lineHeight: '1.2',
           marginBottom: '24px',
           letterSpacing: '-1px'
         }}>
-          <span style={{ whiteSpace: 'nowrap' }}>Unlock a year of unforgettable</span><br/>experiences.
+          Unlock a year of unforgettable experiences.
         </h1>
         
-        <div style={{ fontSize: '1.6rem', fontWeight: '800', marginBottom: '16px', letterSpacing: '-0.5px' }}>
-          ₹5,000 / year
+        <div style={{ fontSize: 'clamp(1.4rem, 4vw, 2rem)', fontWeight: '800', marginBottom: '16px', letterSpacing: '-0.5px', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '12px' }}>
+          <span style={{ textDecoration: 'line-through', color: 'rgba(255,255,255,0.4)', fontSize: '0.85em' }}>₹1,000</span>
+          <span>₹500/ year</span>
         </div>
         
         <p style={{ 
-          fontSize: '1rem', 
+          fontSize: 'clamp(1rem, 3vw, 1.25rem)', 
           color: 'FFFFFF', 
           maxWidth: '900px', 
           margin: '0 auto 40px',
-          lineHeight: '1.5',
+          lineHeight: '1.6',
           fontWeight: '400'
         }}>
-          Discover exclusive events, creator-led workshops, wellness experiences<br/>and member-only rewards with one annual membership.
+          Discover exclusive events, creator-led workshops, wellness experiences and member-only rewards with one annual membership.
         </p>
 
         {/* Top Form */}
@@ -218,24 +229,26 @@ export default function Membership() {
         {/* Included Banner */}
         <div style={{ 
           display: 'flex', 
+          flexWrap: 'wrap',
           alignItems: 'center', 
           justifyContent: 'center', 
-          gap: '16px',
+          gap: 'clamp(6px, 1.5vw, 10px)',
           marginBottom: '80px',
-          fontSize: '1.8rem',
-          fontWeight: '500'
+          fontSize: 'clamp(1.2rem, 4vw, 1.8rem)',
+          fontWeight: '500',
+          textAlign: 'center'
         }}>
           <span>Included free with</span>
           <img 
-            src="https://pub-6d08c79af1b441ba9ae8499c407fd9d0.r2.dev/files/272727%20logo%20(1)%201.png" 
+            src="/Union-living-logo.png" 
             alt="Union Living" 
-            style={{ height: '48px', width: 'auto', objectFit: 'contain' }} 
+            style={{ height: 'clamp(32px, 6vw, 48px)', width: 'auto', objectFit: 'contain', transform: 'translateY(-2px)' }} 
           />
           <span>lease.</span>
         </div>
 
         {/* FAQs */}
-        <h2 style={{ fontSize: '1.5rem', fontWeight: '700', marginBottom: '40px' }}>
+        <h2 style={{ fontSize: 'clamp(2rem, 5vw, 3rem)', fontWeight: '700', marginBottom: '40px', fontFamily: 'var(--font-montserrat)' }}>
           Frequently Asked Questions
         </h2>
         
@@ -278,7 +291,7 @@ export default function Membership() {
         </div>
 
         {/* Bottom CTA */}
-        <h2 style={{ fontSize: '1.5rem', fontWeight: '700', marginBottom: '32px' }}>
+        <h2 style={{ fontSize: 'clamp(2rem, 5vw, 3rem)', fontWeight: '700', marginBottom: '32px', fontFamily: 'var(--font-montserrat)' }}>
           Ready to unlock your membership?
         </h2>
         

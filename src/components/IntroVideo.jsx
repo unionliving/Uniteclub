@@ -8,8 +8,11 @@ export default function IntroVideo() {
 
   useEffect(() => {
     // Determine which video to load based on screen width
-    // Fixed case-sensitivity: UNITE-Mobile.mp4
-    setVideoSrc(window.innerWidth <= 768 ? "/UNITE-Mobile.mp4" : "/UNITE.mp4");
+    setVideoSrc(
+      window.innerWidth <= 768 
+        ? "https://pub-6d08c79af1b441ba9ae8499c407fd9d0.r2.dev/testimonial/UNITE-Mobile.mp4" 
+        : "https://pub-6d08c79af1b441ba9ae8499c407fd9d0.r2.dev/testimonial/UNITE.mp4"
+    );
     
     // Lock scrolling while the video is active
     if (!isRemoved) {
@@ -66,6 +69,7 @@ export default function IntroVideo() {
       `}</style>
       {videoSrc && (
         <video
+          ref={(el) => { if (el) el.playbackRate = 2.0; }}
           className="responsive-intro-video"
           src={videoSrc}
           autoPlay

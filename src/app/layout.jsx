@@ -5,7 +5,7 @@ import { TransitionProvider } from '../context/TransitionContext';
 import Layout from '../components/Layout';
 import IntroVideo from '../components/IntroVideo';
 
-import { Playfair_Display } from 'next/font/google';
+import { Playfair_Display, Montserrat } from 'next/font/google';
 
 const playfair = Playfair_Display({
   subsets: ['latin'],
@@ -14,13 +14,15 @@ const playfair = Playfair_Display({
   variable: '--font-playfair',
 });
 
+const montserrat = Montserrat({
+  subsets: ['latin'],
+  variable: '--font-montserrat',
+});
+
 export const metadata = {
   metadataBase: new URL('https://www.uniteclub.in'),
-  title: 'Uniteclub | Exclusive Events, Workshops & Community by Union Living',
-  description: "Unlock a year of unforgettable experiences. Join Uniteclub for exclusive access to curated parties, creator-led workshops, wellness events, and a vibrant community.",
-  icons: {
-    icon: '/Unite-logo.png',
-  },
+  title: "Unite Club | Exclusive Events, Workshops & Member Benefits Across India",
+    description: "Discover Unite, a premium membership offering exclusive events, creative workshops, wellness experiences and member-only brand rewards across India's leading cities."
 };
 
 export const viewport = {
@@ -32,7 +34,7 @@ export const viewport = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" className={playfair.variable}>
+    <html lang="en" className={`${playfair.variable} ${montserrat.variable}`}>
       <body>
         <TransitionProvider>
             <IntroVideo />

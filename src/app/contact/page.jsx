@@ -54,20 +54,16 @@ export default function Contact() {
           <button 
             onClick={() => transitionTo('/')}
             style={{ 
-              background: 'transparent', 
+              background: 'none', 
               border: 'none', 
               color: 'var(--text-muted)', 
+              cursor: 'pointer', 
               display: 'flex', 
               alignItems: 'center', 
-              gap: '8px', 
-              cursor: 'pointer',
-              fontFamily: 'var(--font-mono)',
-              textTransform: 'uppercase',
-              fontSize: '0.8rem',
-              textAlign: 'left'
+              padding: 0 
             }}
           >
-            <ArrowLeft size={16} /> back to explore
+            <ArrowLeft size={24} color="#fff" />
           </button>
         </div>
       </section>

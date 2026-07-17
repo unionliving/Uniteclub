@@ -124,27 +124,23 @@ export default function Calendar() {
           <button 
             onClick={() => transitionTo('/')}
             style={{ 
-              background: 'transparent', 
+              background: 'none', 
               border: 'none', 
               color: 'var(--text-muted)', 
+              cursor: 'pointer', 
               display: 'flex', 
               alignItems: 'center', 
-              gap: '8px', 
-              cursor: 'pointer',
-              fontFamily: 'var(--font-mono)',
-              textTransform: 'uppercase',
-              fontSize: '0.8rem',
-              textAlign: 'left'
+              padding: 0 
             }}
           >
-            <ArrowLeft size={16} /> back to explore
+            <ArrowLeft size={24} color="#fff" />
           </button>
         </div>
       </section>
 
       <section className="calendar-section" style={{ position: 'relative', zIndex: 10, maxWidth: '1600px', margin: '0 auto' }}>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(8, minmax(0, 1fr))' }}>
-          <div className="mobile-col-full" style={{ gridColumn: '1 / 9', display: 'flex', alignItems: 'center', marginBottom: '40px', color: 'var(--text-muted)' }}>
+          <div className="mobile-col-full" style={{ gridColumn: '1 / 9', display: 'flex', alignItems: 'center', marginBottom: '40px',marginTop: '-40px', color: 'var(--text-muted)' }}>
             <span style={{ 
               fontFamily: 'var(--font-sans)', 
               fontSize: 'clamp(1.5rem, 4vw, 2.2rem)', 

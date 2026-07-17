@@ -48,7 +48,7 @@ export default function Navbar() {
 
   const mobileLinkStyle = {
     color: '#fff',
-    fontSize: '1.5rem',
+    fontSize: '1.1rem',
     textTransform: 'uppercase',
     letterSpacing: '2px',
     fontWeight: '600',
@@ -77,8 +77,8 @@ export default function Navbar() {
         @media (max-width: 900px) {
           .desktop-group { display: none !important; }
           .mobile-hamburger { display: flex !important; position: absolute; right: 24px; top: 50%; transform: translateY(-50%); }
-          .nav-container-inner { padding: 12px 24px !important; justify-content: center !important; }
-          .brand-link { position: static; margin: 0 auto; }
+          .nav-container-inner { padding: 12px 24px !important; justify-content: space-between !important; }
+          .brand-link { position: static; margin: 0; }
         }
         @media (max-width: 768px) {
           .nav-container-inner { padding-left: 24px !important; padding-right: 24px !important; }
@@ -166,11 +166,28 @@ export default function Navbar() {
           gap: '12px',
           overflowY: 'auto'
         }} aria-modal="true" role="dialog">
-          <Link href="/" onClick={() => setIsMobileMenuOpen(false)} style={mobileLinkStyle}>Home</Link>
-          <Link href="/calendar" onClick={() => setIsMobileMenuOpen(false)} style={mobileLinkStyle}>Full Calendar</Link>
-          <Link href="/contact" onClick={() => setIsMobileMenuOpen(false)} style={mobileLinkStyle}>Contact Us</Link>
           
-
+          {/* Close button (Three lines) */}
+          <button 
+            onClick={() => setIsMobileMenuOpen(false)}
+            style={{
+              position: 'absolute',
+              top: '20px',
+              right: '24px',
+              background: 'transparent',
+              border: 'none',
+              color: '#fff',
+              cursor: 'pointer',
+              padding: '8px',
+              zIndex: 11001
+            }}
+            aria-label="Close mobile menu"
+          >
+            <Menu size={28} />
+          </button>
+          <Link href="/" onClick={() => setIsMobileMenuOpen(false)} style={mobileLinkStyle}>Explore</Link>
+          <Link href="/calendar" onClick={() => setIsMobileMenuOpen(false)} style={mobileLinkStyle}>The Drop</Link>
+          <Link href="/contact" onClick={() => setIsMobileMenuOpen(false)} style={mobileLinkStyle}>Contact</Link>
         </div>
       )}
     </>

@@ -87,7 +87,7 @@ const eventData = {
     category: "PARTY",
     date: "18 July | 🕛 10 PM onwards",
     location: "Levitate,Hotel Sea Princess, Juhu",
-    description: "Step into the most iconic wedding-themed party in town! Delulu Wedding, curated by Union Living, is a night of music, dancing and unforgettable vibes with immersive wedding décor and electrifying performances by Man of God, Mehta Music and Synxx. Dress to impress, bring your baraat and celebrate because #NoRishtaAttached.",
+    description: "Step into the most iconic wedding-themed party in town! Delulu Wedding, curated by Union Living, is a night of music, dancing and unforgettable vibes with immersive wedding décor and electrifying performances by Man of God, Mehta Music and Synxx. Dress to impress, bring your baraat and celebrate because #NoRishtaAttached.\n\n📍 Levitate,Hotel Sea Princess, Juhu\n🗓️ 18 July | 🕙 10 PM onwards",
     image: "/Unite-1.jpeg",
     themeColor: "rgba(30, 20, 25, 0.95)",
     expect: [
@@ -95,14 +95,15 @@ const eventData = {
       "Live DJ playing wedding bangers",
       "Themed photo booths",
       "Late night snacks & drinks"
-    ]
+    ],
+    lumaLink: "https://luma.com/iofe88p8"
   },
   "electric-pulse": {
     title: "Electric Pulse",
     category: "PARTY",
     date: "25 July 2026 • 9:00 PM",
     location: "NMIMS Navi Mumbai",
-    description: "AN EXCLUSIVE GLOW IN THE DARK HOUSE PARTY CRAFTED FOR NMIMS NAVI MUMBAI STUDENTS TO KICKSTART COLLEGE IN STYLE.",
+    description: "College is back, and we’re setting the benchmark for how NMIMS Navi Mumbai house parties should be done. Join an exclusive, invite-only night curated by Union Living, featuring a Glow in the Dark theme, high-energy music, interactive games and an incredible crowd. Meet new people, make unforgettable memories and kick off college with a party you’ll be talking about long after it’s over.\n\nLimited spots. Start your college journey the Union way.\n\n📍 Union Student Residences - Kharghar 21\n🎓 Exclusively for NMIMS Navi Mumbai Students\n🎟️ Limited Entry | Invite Only",
     image: "/Unite-2.jpeg",
     themeColor: "rgba(15, 25, 40, 0.95)",
     expect: [
@@ -110,7 +111,8 @@ const eventData = {
       "High energy EDM & House music",
       "Exclusive for college students",
       "Unforgettable kickoff party"
-    ]
+    ],
+    lumaLink: "https://luma.com/vw53kq1q"
   }
 };
 
@@ -197,6 +199,9 @@ export default function EventDetail() {
           justify-content: center;
           gap: 40px;
         }
+        .right-col-rsvp {
+          align-items: flex-end;
+        }
         @media (max-width: 1024px) {
           .event-grid {
             display: flex;
@@ -206,9 +211,30 @@ export default function EventDetail() {
           .right-col {
             justify-content: flex-start;
           }
+          .right-col-rsvp {
+            align-items: center;
+          }
+          .title-alignment {
+            align-items: flex-start !important;
+            text-align: left !important;
+          }
         }
       `}</style>
-      
+      <button 
+        onClick={() => transitionTo('/calendar')} 
+        style={{ 
+          background: 'none', 
+          border: 'none', 
+          color: '#fff', 
+          cursor: 'pointer', 
+          padding: '0 0 24px 0', 
+          display: 'flex', 
+          alignItems: 'center' 
+        }}
+      >
+        <ArrowLeft size={28} />
+      </button>
+
       <div className="event-grid">
         
         {/* Image (Top Left) */}
@@ -228,8 +254,8 @@ export default function EventDetail() {
           </div>
         </div>
 
-        {/* Title (Top Right) */}
-        <div style={{ 
+        {/* Title (Responsive Alignment) */}
+        <div className="title-alignment" style={{ 
           gridColumn: 'span 5', 
           display: 'flex', 
           flexDirection: 'column', 
@@ -238,7 +264,7 @@ export default function EventDetail() {
           textAlign: 'right'
         }}>
           <h1 style={{ 
-            fontSize: 'clamp(2.5rem, 4.5vw, 4.5rem)', 
+            fontSize: 'clamp(3rem, 6vw, 5.5rem)', 
             fontWeight: 700, 
             lineHeight: 1, 
             textTransform: 'uppercase', 
@@ -257,31 +283,33 @@ export default function EventDetail() {
         {/* Description & Details (Bottom Left) */}
         <div style={{ gridColumn: 'span 7', display: 'flex', flexDirection: 'column', gap: '24px' }}>
           <p style={{ fontSize: '1.15rem', lineHeight: '1.6', color: '#EAEAEA' }}>
-            {data.description}
+            {data.description.split('\n').map((line, i) => (
+              <React.Fragment key={i}>
+                {line}
+                {i !== data.description.split('\n').length - 1 && <br />}
+              </React.Fragment>
+            ))}
           </p>
           
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', fontSize: '1.1rem', color: '#fff' }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-              <span style={{ fontSize: '1.4rem' }}>📍</span> <span>{data.location}</span>
-            </div>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-              <span style={{ fontSize: '1.4rem' }}>🗓️</span> <span>{data.date}</span>
-            </div>
-          </div>
         </div>
 
         {/* RSVP Section (Bottom Right) */}
-        <div style={{ 
+        <div className="right-col-rsvp" style={{ 
           gridColumn: 'span 5', 
           display: 'flex', 
           flexDirection: 'column', 
           justifyContent: 'flex-start',
-          alignItems: 'flex-end',
           paddingTop: '8px'
         }}>
           {!showForm ? (
             <button 
-              onClick={() => setShowForm(true)}
+              onClick={() => {
+                if (data.lumaLink) {
+                  window.open(data.lumaLink, '_blank');
+                } else {
+                  setShowForm(true);
+                }
+              }}
               style={{ 
                 backgroundColor: '#351111', 
                 color: '#fff', 

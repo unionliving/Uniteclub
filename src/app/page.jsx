@@ -23,13 +23,9 @@ const ProjectCard = ({ id, title, imageSrc, bgColor, textColor = '#111', imagePo
       style={{
         backgroundColor: bgColor,
         cursor: 'default',
-        borderRadius: '24px',
-        padding: '48px 48px 28px 48px',
-        display: 'flex',
-        flexDirection: 'column',
         position: 'relative',
-        overflow: 'hidden',
-        minHeight: '600px'
+        display: 'flex',
+        flexDirection: 'column'
       }}
     >
       <h2 style={{ 
@@ -600,7 +596,7 @@ export default function Home() {
           marginTop: '30px',
           maxWidth: '500px',
           color: '#e0e0e0',
-          fontSize: '1.05rem',
+          fontSize: 'clamp(0.85rem, 3.5vw, 1.05rem)',
           lineHeight: '1.5',
           fontFamily: 'var(--font-main)',
           fontWeight: '400',
@@ -609,7 +605,7 @@ export default function Home() {
           Access exclusive events, curated experiences and members-only brand rewards across India's most vibrant cities.
         </p>
 
-        <div style={{ display: 'flex', justifyContent:'flex-end', marginTop: '20px' }}>
+        <div className="hero-button-wrapper" style={{ display: 'flex' }}>
           <button 
             onMouseEnter={() => setIsMemberHovered(true)}
             onMouseLeave={() => setIsMemberHovered(false)}
@@ -619,17 +615,16 @@ export default function Home() {
               border: '1px solid rgba(0, 180, 216, 0.4)',
               borderRadius: '16px',
               color: '#00b4d8',
-              padding: '16px 32px',
+              padding: 'clamp(10px, 3vw, 16px) clamp(20px, 5vw, 32px)',
               fontFamily: 'var(--font-main)',
-              fontSize: '1.1rem',
+              fontSize: 'clamp(0.95rem, 3vw, 1.1rem)',
               fontWeight: '600',
               cursor: 'pointer',
               transition: 'all 0.3s ease',
               display: 'inline-flex',
               alignItems: 'center',
               justifyContent: 'center',
-              gap: '12px',
-              transform: 'translateX(20px)'
+              gap: '12px'
             }}
           >
             Request Membership
@@ -649,13 +644,16 @@ export default function Home() {
         </div>
       </section>
 
-      <section style={{ 
-        padding: '100px 0 20px 0',
-        maxWidth: '1600px',
+      <section style={{
+        maxWidth: '1200px',
+        padding: '90px 24px 60px 24px',
         margin: '0 auto',
         display: 'flex',
+        flexWrap: 'nowrap',
+        marginTop: '-40px',
+        gap: '16px',
         justifyContent: 'space-between',
-        alignItems: 'flex-start'
+        alignItems: 'center'
       }}>
         <div>
           <div style={{
@@ -674,7 +672,6 @@ export default function Home() {
             fontSize: 'clamp(2.5rem, 5vw, 4rem)',
             fontWeight: '500',
             color: '#ffffff',
-            margin: '0 0 16px 0',
             lineHeight: '1.2'
           }}>
             6 pillars of <i style={{ fontWeight: '900', fontStyle: 'italic' }}>Unite</i>.
@@ -688,8 +685,8 @@ export default function Home() {
             Designed to inspire, challenge and recharge.
           </p>
         </div>
-        <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'center' }}>
-          <img src="/Unite-logo.png" alt="Planetary Graphic" style={{ height: '130px', width: 'auto', display: 'block', marginTop: '-10px' }} />
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end', flexShrink: 0 }}>
+          <img src="/Unite-logo.png" alt="Planetary Graphic" style={{ height: 'clamp(80px, 20vw, 130px)', width: 'auto', display: 'block', transform: 'translateY(-20px)' }} />
         </div>
       </section>
 
@@ -720,8 +717,8 @@ export default function Home() {
 
       {/* EVENT CALENDAR SECTION */}
       <section 
-        className="calendar-section"
-        style={{  marginBottom: '80px', marginTop: '-260px', position: 'relative', zIndex: 10 }}
+        className="calendar-section desktop-negative-margin"
+        style={{ position: 'relative', zIndex: 10 }}
       >
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(8, minmax(0, 1fr))' }}>
           <div className="mobile-col-full" style={{ gridColumn: '1 / 9', display: 'flex', alignItems: 'center', marginBottom: '40px', color: 'var(--text-muted)' }}>
@@ -1025,15 +1022,15 @@ export default function Home() {
           gridColumn: '1 / 7', 
           zIndex: 2,
         }}>
-          <h2 style={{
-            fontSize: 'clamp(2rem, 3.5vw, 3.5rem)',
-            lineHeight: '1.2',
-            letterSpacing: '-0.02em',
-            fontWeight: 500,
+          <h2 style={{ 
+            fontFamily: 'var(--font-playfair), serif',
+            fontSize: 'clamp(1.5rem, 4vw, 2.5rem)',
+            fontWeight: '600',
+            lineHeight: 1.3,
             color: '#fff',
             marginBottom: '80px'
           }}>
-            Ready to join the community? Get in touch with us to explore membership and discover your new home.
+            Ready to join the club? Get in touch with us to explore membership and unlock a year of unforgettable experiences.
           </h2>
         </div>
           */}
@@ -1095,7 +1092,7 @@ export default function Home() {
           paddingTop: '20px',
           paddingBottom: '20px',
           fontFamily: 'var(--font-mono)',
-          fontSize: '1.2rem',
+          fontSize: '2.5rem',
         }}>
           <div style={{ color: 'var(--text-muted)', textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
             <img src="/Unite-footer.jpeg" alt="Unite" style={{ height: '72px', width: 'auto', display: 'block', marginBottom: '8px' }} />
@@ -1104,7 +1101,7 @@ export default function Home() {
             </div>
           </div>
           
-          <div style={{ display: 'flex', gap: '32px', color: 'var(--text-muted)' }}>
+          <div className="footer-links" style={{ display: 'flex', gap: '32px', color: 'var(--text-muted)', fontSize: '2rem', textTransform: 'uppercase', fontWeight: '600' }}>
             <Link href="/" style={{ cursor: 'pointer', transition: 'color 0.2s ease', textDecoration: 'none', color: 'inherit' }} onMouseEnter={(e) => e.target.style.color = '#fff'} onMouseLeave={(e) => e.target.style.color = 'var(--text-muted)'}>EXPLORE</Link>
             <Link href="/calendar" style={{ cursor: 'pointer', transition: 'color 0.2s ease', textDecoration: 'none', color: 'inherit' }} onMouseEnter={(e) => e.target.style.color = '#fff'} onMouseLeave={(e) => e.target.style.color = 'var(--text-muted)'}>THE DROP</Link>
             {/* <Link href="/our-story" style={{ cursor: 'pointer', transition: 'color 0.2s ease', textDecoration: 'none', color: 'inherit' }} onMouseEnter={(e) => e.target.style.color = '#fff'} onMouseLeave={(e) => e.target.style.color = 'var(--text-muted)'}>our story</Link> */}
