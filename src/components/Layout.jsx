@@ -12,12 +12,7 @@ export default function Layout({ children }) {
     <>
       <Navbar />
       <div className="main-wrapper">
-        {/* 8 column grid background (hidden on home page & membership page) */}
-        {!(isHome || isMembership) && (
-          <div className="grid-overlay">
-            <div/><div/><div/><div/><div/><div/><div/><div/>
-          </div>
-        )}
+
         
         <div className="content-container">
           <main>

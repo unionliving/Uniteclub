@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { ArrowLeft } from 'lucide-react';
 import { useTransitionNavigate } from '../../context/TransitionContext';
-import { supabase } from '../../supabase';
+import { supabase } from '../../lib/supabase';
 import '../../index.css';
 
 export default function Contact() {
@@ -27,22 +27,18 @@ export default function Contact() {
     setSuccess(false);
 
     try {
-      const { error } = await supabase
+      const { error: supabaseError } = await supabase
         .from('contactus')
-        .insert([
-          {
-            name: name.trim(),
-            gmail: email.trim(),
-            message: message.trim()
-          }
-        ]);
-      if (error) throw error;
+        .insert([{ name: name.trim(), email: email.trim(), message: message.trim() }]);
+
+      if (supabaseError) throw supabaseError;
+
       setSuccess(true);
       setName('');
       setEmail('');
       setMessage('');
     } catch (err) {
-      console.error('Error submitting form to supabase:', err);
+      console.error('Error submitting form:', err);
       setError('Something went wrong. Please try again later.');
     } finally {
       setLoading(false);
@@ -71,24 +67,25 @@ export default function Contact() {
               textAlign: 'left'
             }}
           >
-            <ArrowLeft size={16} /> back to home
+            <ArrowLeft size={16} /> back to explore
           </button>
         </div>
       </section>
 
       <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
-        <span className="section-tag" style={{ color: '#f01460' }}>Get In Touch</span>
-        <h1 className="section-title">
-          <span style={{ 
-            background: 'linear-gradient(to right, #f01460, #f42f4a, #fb531d)',
+        <span style={{ fontSize: '1.1rem', fontWeight: '700', color: '#fff', marginBottom: '12px' }}>Get In Touch</span>
+        <h1 style={{ fontFamily: 'var(--font-main), Montserrat, sans-serif', fontSize: 'clamp(1.5rem, 3.5vw, 2.2rem)', fontWeight: '800', marginBottom: '16px', letterSpacing: '-0.5px', textAlign: 'center' }}>
+          Let's Create <span style={{ 
+            background: 'linear-gradient(to right, #ff0055, #ff5500)',
             WebkitBackgroundClip: 'text',
             WebkitTextFillColor: 'transparent',
             backgroundClip: 'text',
-            paddingRight: '0.15em'
-          }}>Contact Us</span>
+            fontStyle: 'italic',
+            paddingRight: '0.1em'
+          }}>Experiences</span> Together!
         </h1>
-        <p className="section-body" style={{ margin: '0 auto 40px', maxWidth: '800px', fontSize: '1.2rem', textAlign: 'center' }}>
-          Whether you want to partner with us, ask a question, or just say hello — we'd love to hear from you.
+        <p style={{ fontFamily: 'var(--font-main), Montserrat, sans-serif', margin: '0 auto 40px', maxWidth: '800px', fontSize: '1.1rem', color: '#e0e0e0', textAlign: 'center' }}>
+          From brand partnerships to venue collaborations and membership enquiries, our inbox is always open.
         </p>
 
         <form onSubmit={handleSubmit} style={{ width: '100%', maxWidth: '500px', display: 'flex', flexDirection: 'column', gap: '16px', textAlign: 'left' }}>

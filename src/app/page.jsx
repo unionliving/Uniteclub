@@ -4,7 +4,6 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { ArrowRight } from 'lucide-react';
 import { useTransitionNavigate } from '../context/TransitionContext';
-import { useAuth } from '../context/AuthContext';
 
 const words = [
 'Events.',
@@ -17,54 +16,65 @@ const words = [
 // Append the first word at the end to create a seamless looping effect
 const loopWords = [...words, words[0]];
 
-const ProjectCard = ({ id, title, imageSrc, bgColor, textColor = '#111', imagePosition = 'center' }) => {
+const ProjectCard = ({ id, title, imageSrc, bgColor, textColor = '#111', imagePosition = 'center', description = "Access exclusive events, curated experiences and members-only brand rewards across India's most vibrant cities." }) => {
   return (
     <div 
       className="project-card-container"
       style={{
         backgroundColor: bgColor,
         cursor: 'default',
+        borderRadius: '24px',
+        padding: '48px 48px 28px 48px',
+        display: 'flex',
+        flexDirection: 'column',
+        position: 'relative',
+        overflow: 'hidden',
+        minHeight: '600px'
       }}
     >
-      <div className="grid-overlay" style={{ 
-        maskImage: 'none', 
-        WebkitMaskImage: 'none', 
-        zIndex: 0,
-        borderLeft: 'none', 
-        borderRight: 'none',
-        opacity: 0.3 
+      <h2 style={{ 
+        fontFamily: 'var(--font-playfair), "Playfair Display", serif',
+        fontSize: 'clamp(3rem, 6vw, 5.5rem)', 
+        fontWeight: '700',
+        letterSpacing: '-0.02em',
+        color: textColor,
+        margin: '0 0 40px 0',
+        lineHeight: '1'
       }}>
-      
-      </div>
+        {title}
+      </h2>
 
-      <div style={{ position: 'relative', zIndex: 1 }}>
-        <div className="project-card-header">
-          
-          <div style={{ 
-            display: 'flex', 
-            justifyContent: 'space-between', 
-            alignItems: 'center',
-            paddingTop: '8px',
-            paddingBottom: '8px'
-          }}>
-            <h2 style={{ 
-              fontSize: 'clamp(2rem, 3.5vw, 3.2rem)', 
-              fontWeight: '400',
-              letterSpacing: '-0.05em',
-              color: textColor
-            }}>{title}</h2>
-          </div>
-        </div>
-
-        <div className="project-card-image-wrapper">
+      <div style={{ 
+        display: 'flex', 
+        gap: '40px',
+        flexWrap: 'wrap',
+        marginTop: 'auto',
+        alignItems: 'flex-start'
+      }}>
+        <div style={{ flex: '1 1 500px', minWidth: '300px' }}>
           <img 
             src={imageSrc} 
             alt={title} 
             className="project-card-image"
             style={{ 
               objectPosition: imagePosition,
+              width: '100%',
+              height: 'auto',
+              maxHeight: '380px',
+              objectFit: 'cover',
+              display: 'block'
             }} 
           />
+        </div>
+        <div style={{ 
+          flex: '1 1 250px',
+          color: textColor,
+          fontFamily: 'var(--font-main)',
+          fontSize: '1.1rem',
+          lineHeight: '1.6',
+          maxWidth: '350px'
+        }}>
+          {description}
         </div>
       </div>
     </div>
@@ -74,7 +84,7 @@ const ProjectCard = ({ id, title, imageSrc, bgColor, textColor = '#111', imagePo
 export default function Home() {
   const router = useRouter();
   const transitionTo = useTransitionNavigate();
-  const { currentUser, isMember } = useAuth();
+
   const [index, setIndex] = useState(0);
   const [isTransitioning, setIsTransitioning] = useState(true);
 
@@ -103,10 +113,16 @@ export default function Home() {
       year: "2026",
       category: "CALM. REFLECT. RESET.",
       imageSrc: "/six-pillars/declutter.PNG",
-      bgColor: "rgba(242, 240, 235, 0.95)",
-      textColor: "#1A1A1A",
+      bgColor: "#7A7854",
+      textColor: "#ffffff",
       topOffset: 0,
-      imagePosition: 'top'
+      imagePosition: 'top',
+      description: (
+        <>
+          <strong>Slow down, reset and recharge.</strong><br />
+         Mindful experiences designed to help you disconnect from the noise and reconnect with yourself.
+        </>
+      )
     },
     {
       id: "mixtape-sessions",
@@ -114,9 +130,15 @@ export default function Home() {
       year: "2026",
       category: "DISCOVER. LISTEN. EXPERIENCE.",
       imageSrc: "/six-pillars/mixtape.png",
-      bgColor: "rgba(28, 30, 38, 0.95)",
+      bgColor: "rgba(87, 34, 18, 0.95)",
       textColor: "#EAEAEA",
-      topOffset: 8
+      topOffset: 8,
+      description: (
+        <>
+          <strong>Live music. Intimate settings. Unforgettable nights.</strong><br />
+          Discover emerging artists and curated performances that bring people together through music.
+        </>
+      )
     },
     {
       id: "junior-senior",
@@ -124,9 +146,15 @@ export default function Home() {
       year: "2026",
       category: "LEARN. GROW. LEVEL UP.",
       imageSrc: "/six-pillars/juniorsenior.PNG",
-      bgColor: "rgba(178, 186, 175, 0.95)",
-      textColor: "#111111",
-      topOffset: 16
+      bgColor: "rgba(182, 69, 74, 0.95)",
+      textColor: "#F5F5F5",
+      topOffset: 16,
+      description: (
+        <>
+          <strong>Learn from those who've been there.</strong><br />
+          Meaningful conversations, career insights and mentorship with alumni, founders and industry professionals.
+        </>
+      )
     },
     {
       id: "elevate",
@@ -134,9 +162,15 @@ export default function Home() {
       year: "2026",
       category: "MOVE. ENERGISE. THRIVE.",
       imageSrc: "/six-pillars/elevate.PNG",
-      bgColor: "rgba(45, 45, 45, 0.95)",
+      bgColor: "rgba(105, 112, 131, 0.95)",
       textColor: "#F5F5F5",
-      topOffset: 24
+      topOffset: 24,
+      description: (
+        <>
+          <strong>Move better. Feel stronger. Live healthier.</strong><br />
+          Fitness sessions, sports, wellness experiences and activities designed to energize your everyday.
+        </>
+      )
     },
     {
       id: "moodboard",
@@ -144,9 +178,15 @@ export default function Home() {
       year: "2026",
       category: "CREATE. EXPRESS. EXPLORE.",
       imageSrc: "/six-pillars/moodboard.PNG",
-      bgColor: "rgba(222, 214, 204, 0.95)",
-      textColor: "#1E1E1E",
-      topOffset: 32
+      bgColor: "rgba(43, 58, 57, 0.95)",
+      textColor: "#F5F5F5",
+      topOffset: 32,
+      description: (
+        <>
+          <strong>Create, explore and express yourself.</strong><br />
+          Hands-on workshops and creative experiences spanning art, design, photography, pottery, fashion and more.
+        </>
+      )
     },
     {
       id: "better-together",
@@ -154,10 +194,16 @@ export default function Home() {
       year: "2026",
       category: "CONNECT. SHARE. BELONG.",
       imageSrc: "/six-pillars/bettertogether.png",
-      bgColor: "rgba(60, 45, 40, 0.95)",
+      bgColor: "rgba(136, 85, 34, 0.95)",
       textColor: "#F2ECE9",
       topOffset: 40,
-      imagePosition: 'top'
+      imagePosition: 'top',
+      description: (
+        <>
+          <strong>Shared tables. Shared moments. Shared memories.</strong><br />
+          Community dinners, social gatherings and experiences designed to make every meetup more memorable.
+        </>
+      )
     }
   ];
 
@@ -268,7 +314,6 @@ export default function Home() {
           flex-direction: column;
           justify-content: center;
           padding-top: 20px;
-          padding-bottom: 60px;
         }
         .footer-inner {
           max-width: 1600px;
@@ -286,17 +331,17 @@ export default function Home() {
           margin-bottom: 32px;
         }
         .hero-title {
-          font-size: clamp(1.5rem, 7vw, 6.5rem);
-          font-weight: 400;
+          font-family: var(--font-playfair), 'Playfair Display', serif !important;
+          font-size: clamp(1.3rem, 6vw, 4.5rem);
+          font-weight: 500;
           line-height: 1;
-          letter-spacing: -0.05em;
+          letter-spacing: 0.02em;
           max-width: 1400px;
           display: flex;
           flex-direction: column;
           gap: 16px;
           margin-top: 0;
         }
-        
         /* Event Calendar Row Styles */
         .calendar-row {
           display: grid;
@@ -510,52 +555,10 @@ export default function Home() {
         <div className="hero-subtitle">
          
         </div>
-
-        <div style={{ marginBottom: '24px', display: 'flex' }}>
-          <button 
-            onMouseEnter={() => setIsMemberHovered(true)}
-            onMouseLeave={() => setIsMemberHovered(false)}
-            onClick={() => transitionTo('/membership')}
-            style={{
-              backgroundColor: isMemberHovered ? '#fff' : 'transparent',
-              border: '2px solid var(--grid-color)',
-              color: isMemberHovered ? '#000' : 'var(--text-muted)',
-              padding: '20px 48px',
-              fontFamily: 'var(--font-mono)',
-              fontSize: '1.2rem',
-              cursor: 'pointer',
-              transition: 'all 0.3s ease',
-              textTransform: 'uppercase',
-              letterSpacing: '1px',
-              display: 'inline-flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              gap: '12px'
-            }}
-          >
-            {isMember ? 'member dashboard' : 'Request Membership'}
-            <svg 
-              width="20" 
-              height="20" 
-              viewBox="0 0 24 24" 
-              fill="none" 
-              stroke="currentColor" 
-              strokeWidth="2" 
-              strokeLinecap="square" 
-              strokeLinejoin="miter"
-            >
-              {isMemberHovered ? (
-                <path d="M3 21L23 1M11 1h12v12" />
-              ) : (
-                <path d="M2 12h20M14.5 3.5L23 12l-8.5 8.5" />
-              )}
-            </svg>
-          </button>
-        </div>
         
         <h1 className="hero-title">
-          <span>Curated experiences.</span>
-          <span>Exclusively for members.</span>
+          <span>One Membership.</span>
+          <span>Unlimited <i>Experiences</i>.</span>
           
           <span>
             <span style={{ 
@@ -592,8 +595,105 @@ export default function Home() {
             </span>
           </span>
         </h1>
+
+        <p style={{
+          marginTop: '30px',
+          maxWidth: '500px',
+          color: '#e0e0e0',
+          fontSize: '1.05rem',
+          lineHeight: '1.5',
+          fontFamily: 'var(--font-main)',
+          fontWeight: '400',
+          letterSpacing: '0.5px'
+        }}>
+          Access exclusive events, curated experiences and members-only brand rewards across India's most vibrant cities.
+        </p>
+
+        <div style={{ display: 'flex', justifyContent:'flex-end', marginTop: '20px' }}>
+          <button 
+            onMouseEnter={() => setIsMemberHovered(true)}
+            onMouseLeave={() => setIsMemberHovered(false)}
+            onClick={() => transitionTo('/membership')}
+            style={{
+              backgroundColor: isMemberHovered ? 'rgba(0, 180, 216, 0.1)' : 'transparent',
+              border: '1px solid rgba(0, 180, 216, 0.4)',
+              borderRadius: '16px',
+              color: '#00b4d8',
+              padding: '16px 32px',
+              fontFamily: 'var(--font-main)',
+              fontSize: '1.1rem',
+              fontWeight: '600',
+              cursor: 'pointer',
+              transition: 'all 0.3s ease',
+              display: 'inline-flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              gap: '12px',
+              transform: 'translateX(20px)'
+            }}
+          >
+            Request Membership
+            <svg 
+              width="20" 
+              height="20" 
+              viewBox="0 0 24 24" 
+              fill="none" 
+              stroke="currentColor" 
+              strokeWidth="2" 
+              strokeLinecap="round" 
+              strokeLinejoin="round"
+            >
+              <path d="M5 12h14M12 5l7 7-7 7" />
+            </svg>
+          </button>
+        </div>
       </section>
-      <div style={{ marginTop: '80px', display: 'flow-root' }}>
+
+      <section style={{ 
+        padding: '100px 0 20px 0',
+        maxWidth: '1600px',
+        margin: '0 auto',
+        display: 'flex',
+        justifyContent: 'space-between',
+        alignItems: 'flex-start'
+      }}>
+        <div>
+          <div style={{
+            fontFamily: 'var(--font-sans)',
+            fontWeight: '700',
+            fontSize: '0.9rem',
+            letterSpacing: '1px',
+            color: '#fff',
+            textTransform: 'uppercase',
+            marginBottom: '16px'
+          }}>
+            The Foundation
+          </div>
+          <h2 style={{
+            fontFamily: 'var(--font-playfair), "Playfair Display", serif',
+            fontSize: 'clamp(2.5rem, 5vw, 4rem)',
+            fontWeight: '500',
+            color: '#ffffff',
+            margin: '0 0 16px 0',
+            lineHeight: '1.2'
+          }}>
+            6 pillars of <i style={{ fontWeight: '900', fontStyle: 'italic' }}>Unite</i>.
+          </h2>
+          <p style={{
+            fontFamily: 'var(--font-sans)',
+            fontSize: '1rem',
+            color: '#FFFFFF',
+            margin: 0
+          }}>
+            Designed to inspire, challenge and recharge.
+          </p>
+        </div>
+        <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'center' }}>
+          <img src="/Unite-logo.png" alt="Planetary Graphic" style={{ height: '130px', width: 'auto', display: 'block', marginTop: '-10px' }} />
+        </div>
+      </section>
+
+      <div style={{ display: 'flow-root' }}>
         {cardsData.map((card, i) => {
           // Calculate depth: how many active cards are stacked ON TOP of this one
           const activeIndex = Math.max(0, stuckCount - 1);
@@ -615,27 +715,23 @@ export default function Home() {
             </div>
           );
         })}
-        {/* Adds 65vh of slack to the entire stack, allowing Card 6 to stay stuck for a comfortable scroll distance */}
-        <div style={{ height: '65vh', pointerEvents: 'none' }} />
       </div>
 
 
       {/* EVENT CALENDAR SECTION */}
       <section 
         className="calendar-section"
-        style={{  marginBottom: '80px' }}
+        style={{  marginBottom: '80px', marginTop: '-260px', position: 'relative', zIndex: 10 }}
       >
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(8, minmax(0, 1fr))' }}>
           <div className="mobile-col-full" style={{ gridColumn: '1 / 9', display: 'flex', alignItems: 'center', marginBottom: '40px', color: 'var(--text-muted)' }}>
             <span style={{ 
-              fontFamily: 'var(--font-mono)', 
-              fontSize: 'clamp(1.2rem, 4vw, 1.9rem)', 
+              fontFamily: 'var(--font-sans)', 
+              fontSize: 'clamp(1.5rem, 4vw, 2.2rem)', 
               marginRight: '16px', 
               fontWeight: '400', 
-              letterSpacing: '1px',
-              textTransform: 'uppercase',
               color: '#fff'
-            }}>.Event Calendar</span>
+            }}>What's Happening</span>
             <div style={{ height: '1px', flex: 1, backgroundColor: 'var(--grid-color)' }}></div>
           </div>
         </div>
@@ -646,18 +742,18 @@ export default function Home() {
         >
           {[
             {
-              id: "founder-mixer",
-              line1: "FOUNDER",
-              line2: "MIXER",
-              date: "NETWORKING • COMING SOON",
-              image: "/fun_networking.png"
+              id: "delulu-wedding",
+              line1: "DELULU",
+              line2: "WEDDING",
+              date: "A WEDDING-THEMED PARTY WHERE STRANGERS BECOME THE BARAAT AND MEMORIES LAST LONGER THAN THE VOWS.",
+              image: "/Unite-1.jpeg"
             },
             {
-              id: "paint-pour",
-              line1: "PAINT &",
-              line2: "POUR",
-              date: "CREATIVE • COMING SOON",
-              image: "/six-pillars/moodboard.PNG"
+              id: "electric-pulse",
+              line1: "ELECTRIC",
+              line2: "PULSE",
+              date: "AN EXCLUSIVE GLOW IN THE DARK HOUSE PARTY CRAFTED FOR NMIMS NAVI MUMBAI STUDENTS TO KICKSTART COLLEGE IN STYLE.",
+              image: "/Unite-2.jpeg"
             }
           ].map((event) => (
             <div 
@@ -692,17 +788,18 @@ export default function Home() {
         >
           {[
             {
-              id: "linkedin-audit",
-              line1: "LINKEDIN",
-              line2: "AUDIT SESSION",
-              date: "CAREER • COMING SOON",
-              image: "/creative_workshop.png"
+              id: "movie-under-the-stars",
+              line1: "MOVIE UNDER",
+              line2: "THE STARS",
+              date: "A COZY OPEN-AIR MOVIE NIGHT WITH GREAT FILMS, GOOD COMPANY AND UNFORGETTABLE VIBES UNDER THE STARS.",
+              image: "/Unite-3.jpeg"
             }
           ].map((event) => (
             <div 
               key={event.id}
-              onClick={() => transitionTo(`/event/${event.id}`)}
+              onClick={event.id === "movie-under-the-stars" ? undefined : () => transitionTo(`/event/${event.id}`)}
               className="calendar-card"
+              style={{ cursor: event.id === "movie-under-the-stars" ? 'default' : 'pointer' }}
             >
               <div className="calendar-card-img-wrapper">
                 <img 
@@ -727,52 +824,9 @@ export default function Home() {
         </div>
         <div ref={row2TriggerRef} style={{ height: '10px', background: 'transparent', pointerEvents: 'none' }} />
 
-        {/* Visit Calendar Button */}
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(8, 1fr)', marginTop: '40px' }}>
-          <div className="mobile-col-full" style={{ gridColumn: '7 / 9', display: 'flex' }}>
-            <button 
-              onMouseEnter={() => setIsBlogHovered(true)}
-              onMouseLeave={() => setIsBlogHovered(false)}
-              onClick={() => router.push('/calendar')}
-              style={{
-                width: '100%',
-                backgroundColor: isBlogHovered ? '#fff' : 'transparent',
-                border: '2px solid var(--grid-color)',
-                color: isBlogHovered ? '#000' : 'var(--text-muted)',
-                padding: '16px 24px',
-                fontFamily: 'var(--font-mono)',
-                fontSize: '1rem',
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center',
-                gap: '12px',
-                cursor: 'pointer',
-                transition: 'all 0.3s ease'
-              }}
-            >
-              View Full Calendar 
-              <svg 
-                width="16" 
-                height="16" 
-                viewBox="0 0 24 24" 
-                fill="none" 
-                stroke="currentColor" 
-                strokeWidth="2.5" 
-                strokeLinecap="square" 
-                strokeLinejoin="miter"
-              >
-                {isBlogHovered ? (
-                  <path d="M3 21L23 1M11 1h12v12" />
-                ) : (
-                  <path d="M2 12h20M14.5 3.5L23 12l-8.5 8.5" />
-                )}
-              </svg>
-            </button>
-          </div>
-        </div>
       </section>
 
-      {/* Static Brands Section */}
+      {/* Static Brands Section 
       <section className="mobile-stack" style={{ 
         display: 'grid', 
         gridTemplateColumns: 'repeat(8, minmax(0, 1fr))', 
@@ -831,7 +885,7 @@ export default function Home() {
         </div>
       </section>
 
-
+*/}
 
       {/* NEW ABOUT SECTION */}
       {/*
@@ -900,7 +954,7 @@ export default function Home() {
             width: '24px',
             height: '24px',
             opacity: isAboutVisible ? 1 : 0,
-            transition: 'opacity 1s ease 1s',
+            transition: 'opacity 1s ease 1s',a
             pointerEvents: 'none'
           }}>
             <div style={{ position: 'absolute', top: '50%', left: 0, right: 0, height: '1px', backgroundColor: 'var(--grid-color)' }}></div>
@@ -952,7 +1006,7 @@ export default function Home() {
         </div>
       </section> */}
 
-      {/* SAY HELLO SECTION */}
+      {/* SAY HELLO SECTION 
       <section 
         className="mobile-stack"
         style={{
@@ -982,8 +1036,8 @@ export default function Home() {
             Ready to join the community? Get in touch with us to explore membership and discover your new home.
           </h2>
         </div>
-
-        {/* contact me button */}
+          */}
+        {/* contact me button 
         <div className="mobile-col-full" style={{ 
           gridColumn: '5 / 7', 
           alignSelf: 'start',
@@ -1023,7 +1077,7 @@ export default function Home() {
           </button>
         </div>
       </section>
-
+*/}
       {/* FOOTER */}
       <div style={{
         width: '100vw',
@@ -1043,9 +1097,9 @@ export default function Home() {
           fontFamily: 'var(--font-mono)',
           fontSize: '1.2rem',
         }}>
-          <div style={{ color: 'var(--text-muted)', textAlign: 'left' }}>
-            UNITE
-            <div style={{ fontSize: '0.8rem', marginTop: '6px', opacity: 0.6 }}>
+          <div style={{ color: 'var(--text-muted)', textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+            <img src="/Unite-footer.jpeg" alt="Unite" style={{ height: '72px', width: 'auto', display: 'block', marginBottom: '8px' }} />
+            <div style={{ fontSize: '0.8rem', opacity: 0.6 }}>
               © {new Date().getFullYear()} All rights reserved
             </div>
           </div>
@@ -1056,7 +1110,7 @@ export default function Home() {
             {/* <Link href="/our-story" style={{ cursor: 'pointer', transition: 'color 0.2s ease', textDecoration: 'none', color: 'inherit' }} onMouseEnter={(e) => e.target.style.color = '#fff'} onMouseLeave={(e) => e.target.style.color = 'var(--text-muted)'}>our story</Link> */}
             <Link href="/contact" style={{ cursor: 'pointer', transition: 'color 0.2s ease', textDecoration: 'none', color: 'inherit' }} onMouseEnter={(e) => e.target.style.color = '#fff'} onMouseLeave={(e) => e.target.style.color = 'var(--text-muted)'}>CONTACT</Link>
           </div>
-
+        {/* Social Media Icons
           <div style={{ display: 'flex', gap: '24px', color: 'var(--text-muted)' }}>
             <a href="https://www.youtube.com/@unioncoliving" target="_blank" rel="noopener noreferrer" style={{ color: 'inherit', display: 'flex', transition: 'color 0.2s ease' }} onMouseEnter={(e) => e.currentTarget.style.color = '#fff'} onMouseLeave={(e) => e.currentTarget.style.color = 'var(--text-muted)'}>
               <svg style={{ cursor: 'pointer' }} width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33 2.78 2.78 0 0 0 1.94 2c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.33 29 29 0 0 0-.46-5.33z"></path><polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"></polygon></svg>
@@ -1064,7 +1118,7 @@ export default function Home() {
             <a href="https://www.instagram.com/union_living/?hl=en" target="_blank" rel="noopener noreferrer" style={{ color: 'inherit', display: 'flex', transition: 'color 0.2s ease' }} onMouseEnter={(e) => e.currentTarget.style.color = '#fff'} onMouseLeave={(e) => e.currentTarget.style.color = 'var(--text-muted)'}>
               <svg style={{ cursor: 'pointer' }} width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
             </a>
-          </div>
+          </div> */}
         </footer>
       </div>
       

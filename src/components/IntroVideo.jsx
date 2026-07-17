@@ -8,7 +8,8 @@ export default function IntroVideo() {
 
   useEffect(() => {
     // Determine which video to load based on screen width
-    setVideoSrc(window.innerWidth <= 768 ? "/unite-mobile.mp4" : "/UNITE.mp4");
+    // Fixed case-sensitivity: UNITE-Mobile.mp4
+    setVideoSrc(window.innerWidth <= 768 ? "/UNITE-Mobile.mp4" : "/UNITE.mp4");
     
     // Lock scrolling while the video is active
     if (!isRemoved) {
@@ -24,6 +25,7 @@ export default function IntroVideo() {
   }, [isRemoved]);
 
   const handleVideoEnd = () => {
+    if (isFadingOut) return; // Prevent multiple triggers
     // Start the fade out transition
     setIsFadingOut(true);
     
@@ -70,6 +72,7 @@ export default function IntroVideo() {
           muted
           playsInline
           onEnded={handleVideoEnd}
+          onError={handleVideoEnd} // Fallback if video fails to load or play
         />
       )}
     </div>

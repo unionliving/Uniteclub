@@ -90,10 +90,7 @@ nav {
   font-size: 36px;
   font-weight: 900;
   font-style: italic;
-  background: var(--grad-text);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  color: #ffffff;
   line-height: 1;
 }
 .nav-links {
@@ -277,7 +274,7 @@ section { padding: 120px 60px; }
 .testi-card { background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.05); padding: 32px 32px; position: relative; border-radius: 1rem; transition: transform 0.4s; display: flex; flex-direction: row; align-items: flex-start; gap: 20px; text-align: left; }
 .testi-card:hover { transform: translateY(-4px); border-color: rgba(255,255,255,0.1); background: rgba(255, 255, 255, 0.04); box-shadow: 0 10px 20px rgba(0,0,0,0.2); }
 .testi-quote-mark { font-family: 'Playfair Display', serif; font-size: 60px; line-height: 0.8; font-weight: 900; background: var(--grad-text); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; display: block; opacity: 0.8; flex-shrink: 0; margin-top: 5px; }
-.testi-text { font-family: 'Playfair Display', serif; font-size: 20px; font-style: italic; line-height: 1.5; color: rgba(255, 255, 255, 0.9); margin-bottom: 0; }
+.testi-text { font-family: 'Montserrat', sans-serif; font-size: 20px; font-style: italic; line-height: 1.5; color: rgba(255, 255, 255, 0.9); margin-bottom: 0; }
 
 /* WHY JOIN */
 .why-section { position: relative; overflow: hidden; padding: 80px 60px 40px 60px; }
@@ -286,7 +283,7 @@ section { padding: 120px 60px; }
 .why-content { position: relative; z-index: 1; text-align: left; max-width: 800px; }
 .why-title { font-size: clamp(50px, 7vw, 100px); line-height: 1.1; font-weight: 900; margin-bottom: 50px; }
 .why-list { list-style: none; display: flex; flex-direction: column; align-items: flex-start; gap: 16px; }
-.why-item { display: flex; align-items: center; gap: 16px; padding: 18px 30px; border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 50px; background: rgba(255, 255, 255, 0.03); font-size: clamp(18px, 2.5vw, 22px); font-family: 'Playfair Display', serif; font-style: italic; color: rgba(255, 255, 255, 0.9); transition: all 0.4s; cursor: default; width: 100%; max-width: 700px; }
+.why-item { display: flex; align-items: center; gap: 16px; padding: 18px 30px; border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 50px; background: rgba(255, 255, 255, 0.03); font-size: clamp(18px, 2.5vw, 22px); font-family: 'Montserrat', sans-serif; font-style: italic; color: rgba(255, 255, 255, 0.9); transition: all 0.4s; cursor: default; width: 100%; max-width: 700px; }
 .why-item:hover { color: #fff; transform: translateX(10px); background: rgba(255, 255, 255, 0.08); border-color: rgba(240, 20, 107, 0.5); box-shadow: 0 10px 20px rgba(0,0,0,0.3); }
 .why-num { font-family: 'Montserrat', sans-serif; font-size: 14px; background: var(--grad-text); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; font-weight: 800; flex-shrink: 0; font-style: normal; }
 

@@ -2,9 +2,9 @@
 import React, { useState, useEffect } from 'react';
 import { useRouter, useParams, usePathname } from 'next/navigation';
 import { ArrowLeft, Calendar as CalendarIcon, MapPin, CheckCircle2 } from 'lucide-react';
-import { supabase } from '../../../supabase';
-import { useAuth } from '../../../context/AuthContext';
+
 import { useTransitionNavigate } from '../../../context/TransitionContext';
+import { supabase } from '../../../lib/supabase';
 
 const eventData = {
   "founder-mixer": {
@@ -81,6 +81,36 @@ const eventData = {
       "Freshly squeezed cold juices and smoothie bowls",
       "Mental wellness journaling session"
     ]
+  },
+  "delulu-wedding": {
+    title: "Delulu Wedding",
+    category: "PARTY",
+    date: "18 July | 🕛 10 PM onwards",
+    location: "Levitate,Hotel Sea Princess, Juhu",
+    description: "Step into the most iconic wedding-themed party in town! Delulu Wedding, curated by Union Living, is a night of music, dancing and unforgettable vibes with immersive wedding décor and electrifying performances by Man of God, Mehta Music and Synxx. Dress to impress, bring your baraat and celebrate because #NoRishtaAttached.",
+    image: "/Unite-1.jpeg",
+    themeColor: "rgba(30, 20, 25, 0.95)",
+    expect: [
+      "Baraat entry experience",
+      "Live DJ playing wedding bangers",
+      "Themed photo booths",
+      "Late night snacks & drinks"
+    ]
+  },
+  "electric-pulse": {
+    title: "Electric Pulse",
+    category: "PARTY",
+    date: "25 July 2026 • 9:00 PM",
+    location: "NMIMS Navi Mumbai",
+    description: "AN EXCLUSIVE GLOW IN THE DARK HOUSE PARTY CRAFTED FOR NMIMS NAVI MUMBAI STUDENTS TO KICKSTART COLLEGE IN STYLE.",
+    image: "/Unite-2.jpeg",
+    themeColor: "rgba(15, 25, 40, 0.95)",
+    expect: [
+      "Glow in the dark accessories provided",
+      "High energy EDM & House music",
+      "Exclusive for college students",
+      "Unforgettable kickoff party"
+    ]
   }
 };
 
@@ -89,34 +119,18 @@ export default function EventDetail() {
   const router = useRouter();
   const transitionTo = useTransitionNavigate();
   const pathname = usePathname();
-  const { currentUser, isMember, checkingMembership } = useAuth();
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState('');
 
-  useEffect(() => {
-    if (currentUser) {
-      setName(currentUser.name || '');
-      setEmail(currentUser.email || '');
-    }
-  }, [currentUser]);
-
-  const isMixtape = id === 'mixtape-night' || id === 'mixtape-sessions';
-
-  useEffect(() => {
-    if (!isMixtape) return;
-    if (!document.getElementById('luma-checkout')) {
-      const s = document.createElement('script');
-      s.id = 'luma-checkout';
-      s.src = 'https://embed.lu.ma/checkout-button.js';
-      s.async = true;
-      document.body.appendChild(s);
-    }
-  }, [isMixtape]);
-
-  const data = eventData[id];
+  let data = eventData[id];
+  if (!data && id) {
+    const decoded = decodeURIComponent(id);
+    const hyphenated = decoded.toLowerCase().replace(/\s+/g, '-');
+    data = eventData[hyphenated] || Object.values(eventData).find(e => e.title.toLowerCase() === decoded.toLowerCase() || e.title.toLowerCase().replace(/\s+/g, '-') === hyphenated);
+  }
 
   if (!data) {
     return (
@@ -160,229 +174,179 @@ export default function EventDetail() {
     }
   };
 
+  const [showForm, setShowForm] = useState(false);
+
   return (
-    <div style={{ paddingTop: '24px', paddingBottom: '150px', minHeight: '100vh', color: '#fff' }}>
+    <div style={{ paddingTop: '80px', paddingBottom: '150px', minHeight: '100vh', color: '#fff', maxWidth: '1400px', margin: '0 auto', paddingLeft: '24px', paddingRight: '24px' }}>
+      <style>{`
+        .event-grid {
+          display: grid;
+          grid-template-columns: repeat(12, minmax(0, 1fr));
+          gap: 60px;
+        }
+        .left-col {
+          grid-column: span 7;
+          display: flex;
+          flex-direction: column;
+          gap: 24px;
+        }
+        .right-col {
+          grid-column: span 5;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          gap: 40px;
+        }
+        @media (max-width: 1024px) {
+          .event-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+          }
+          .right-col {
+            justify-content: flex-start;
+          }
+        }
+      `}</style>
       
-      {/* Back button */}
-      <section className="mobile-stack" style={{ display: 'grid', gridTemplateColumns: 'repeat(8, minmax(0, 1fr))', marginBottom: '24px', padding: '0' }}>
-        <div className="mobile-col-full" style={{ gridColumn: '1 / 9' }}>
-          <button 
-            onClick={() => transitionTo('/calendar')}
-            style={{ 
-              background: 'transparent', 
-              border: 'none', 
-              color: 'var(--text-muted)', 
-              display: 'flex', 
-              alignItems: 'center', 
-              gap: '8px', 
-              cursor: 'pointer',
-              fontFamily: 'var(--font-mono)',
-              textTransform: 'uppercase',
-              fontSize: '0.8rem',
-              textAlign: 'left'
-            }}
-          >
-            <ArrowLeft size={16} /> back to calendar
-          </button>
-        </div>
-      </section>
-
-      {/* Hero Section */}
-      <section className="mobile-stack" style={{ display: 'grid', gridTemplateColumns: 'repeat(8, minmax(0, 1fr))', marginBottom: '48px', padding: '0' }}>
-        <div className="mobile-col-full" style={{ gridColumn: '1 / 6' }}>
-          <div style={{ display: 'flex', alignItems: 'center', marginBottom: '24px', color: 'var(--text-muted)' }}>
-            <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.8rem', marginRight: '16px' }}>{data.category}</span>
-            <div style={{ height: '1px', flex: 1, backgroundColor: 'var(--grid-color)' }}></div>
-          </div>
-          
-          <h1 style={{
-            fontSize: 'clamp(2.5rem, 5vw, 5rem)',
-            lineHeight: '1.1',
-            letterSpacing: '-0.03em',
-            fontWeight: 500,
-            marginBottom: '32px'
-          }}>
-            {data.title}
-          </h1>
-
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', color: '#EAEAEA' }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '12px', fontSize: '1.1rem' }}>
-              <CalendarIcon size={20} style={{ color: 'var(--text-muted)' }} />
-              <span>{data.date}</span>
-            </div>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '12px', fontSize: '1.1rem' }}>
-              <MapPin size={20} style={{ color: 'var(--text-muted)' }} />
-              <span>{data.location}</span>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Main Content & Registration */}
-      <section className="mobile-stack" style={{ display: 'grid', gridTemplateColumns: 'repeat(8, minmax(0, 1fr))', gap: '40px', padding: '0' }}>
+      <div className="event-grid">
         
-        {/* Left Side: About the Event & Expectation List */}
-        <div className="mobile-col-full" style={{ gridColumn: '1 / 5', display: 'flex', flexDirection: 'column', gap: '40px' }}>
-          <div>
-            <h3 style={{ fontSize: '1.5rem', marginBottom: '20px', fontWeight: 500 }}>About the event</h3>
-            <p style={{ fontSize: '1.1rem', color: 'var(--text-muted)', lineHeight: '1.6' }}>{data.description}</p>
-          </div>
-
-          <div style={{
-            backgroundColor: 'rgba(255,255,255,0.03)',
-            border: '1px solid var(--grid-color)',
-            borderRadius: '16px',
-            padding: '32px'
-          }}>
-            <h3 style={{ fontSize: '1.3rem', marginBottom: '24px', fontWeight: 500 }}>What's included</h3>
-            <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '16px' }}>
-              {data.expect.map((item, idx) => (
-                <li key={idx} style={{ display: 'flex', alignItems: 'flex-start', gap: '12px', fontSize: '1rem', color: 'var(--text-muted)' }}>
-                  <CheckCircle2 size={18} style={{ color: '#fff', marginTop: '2px', flexShrink: 0 }} />
-                  <span>{item}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </div>
-
-        {/* Right Side: Image & RSVP Form */}
-        <div className="mobile-col-full" style={{ gridColumn: '5 / 9', display: 'flex', flexDirection: 'column', gap: '40px' }}>
-          
-          {/* Featured Image */}
+        {/* Image (Top Left) */}
+        <div style={{ gridColumn: 'span 7' }}>
           <div style={{
             width: '100%',
-            height: '280px',
+            aspectRatio: '16/9',
             borderRadius: '16px',
             overflow: 'hidden',
-            backgroundColor: data.themeColor,
-            position: 'relative'
+            backgroundColor: data.themeColor || 'rgba(255,255,255,0.05)',
           }}>
             <img 
               src={data.image} 
               alt={data.title}
-              style={{
-                width: '100%',
-                height: '100%',
-                objectFit: 'cover',
-                opacity: 0.9
-              }}
+              style={{ width: '100%', height: '100%', objectFit: 'cover' }}
             />
-          </div>
-
-          {/* RSVP Card */}
-          <div style={{
-            backgroundColor: 'rgba(255,255,255,0.03)',
-            border: '1px solid var(--grid-color)',
-            borderRadius: '16px',
-            padding: '32px'
-          }}>
-            {!currentUser ? (
-              <div style={{ textAlign: 'center', display: 'flex', flexDirection: 'column', gap: '20px' }}>
-                <h3 style={{ fontSize: '1.3rem', fontWeight: 500, margin: 0 }}>Register for Event</h3>
-                <p style={{ fontSize: '1rem', color: 'var(--text-muted)', lineHeight: '1.5', margin: 0 }}>
-                  To reserve your spot or register for this experience, please sign in or create an account.
-                </p>
-                <button 
-                  onClick={() => transitionTo('/login', { state: { from: pathname } })}
-                  className="grad-btn"
-                  style={{ border: 'none', cursor: 'pointer', padding: '16px', fontSize: '16px', fontWeight: '600', width: '100%' }}
-                >
-                  Log In to Register
-                </button>
-                <div style={{ fontSize: '14px', color: 'var(--text-muted)' }}>
-                  Don't have an account?{' '}
-                  <button 
-                    onClick={() => transitionTo('/signup', { state: { from: pathname } })}
-                    style={{ background: 'none', border: 'none', color: '#fff', cursor: 'pointer', textDecoration: 'underline', padding: 0, fontSize: '14px' }}
-                  >
-                    Sign Up
-                  </button>
-                </div>
-              </div>
-            ) : isMixtape ? (
-              <div style={{ textAlign: 'center', display: 'flex', flexDirection: 'column', gap: '20px' }}>
-                <h3 style={{ fontSize: '1.3rem', fontWeight: 500, margin: 0 }}>Register for Event</h3>
-                <a
-                  href="https://luma.com/event/evt-fKs4fJ5RZCRsr2N"
-                  className="luma-checkout--button"
-                  data-luma-action="checkout"
-                  data-luma-event-id="evt-fKs4fJ5RZCRsr2N"
-                  style={{
-                    display: 'inline-block',
-                    width: '100%',
-                    textAlign: 'center',
-                    padding: '16px',
-                    borderRadius: '8px',
-                    background: 'linear-gradient(90deg,#7c5cff,#4da6ff)',
-                    color: '#fff',
-                    fontWeight: 600,
-                    textDecoration: 'none'
-                  }}
-                >
-                  Register for Event
-                </a>
-              </div>
-            ) : checkingMembership && id !== 'paint-pour' ? (
-              <div style={{ textAlign: 'center', padding: '20px' }}>
-                <p style={{ color: 'var(--text-muted)', fontFamily: 'var(--font-mono)', fontSize: '0.9rem' }}>Checking membership status...</p>
-              </div>
-            ) : (id === 'paint-pour' || isMember) ? (
-              <>
-                <h3 style={{ fontSize: '1.3rem', marginBottom: '20px', fontWeight: 500 }}>Reserve your spot</h3>
-                <form onSubmit={handleRsvp} style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-                  <input 
-                    type="text" 
-                    placeholder="Your Name" 
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
-                    disabled={loading}
-                    required
-                    style={{ padding: '16px', borderRadius: '8px', border: '1px solid rgba(255,255,255,0.1)', background: 'rgba(255,255,255,0.05)', color: '#fff', outline: 'none' }} 
-                  />
-                  <input 
-                    type="email" 
-                    placeholder="Your Email" 
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    disabled={loading}
-                    required
-                    style={{ padding: '16px', borderRadius: '8px', border: '1px solid rgba(255,255,255,0.1)', background: 'rgba(255,255,255,0.05)', color: '#fff', outline: 'none' }} 
-                  />
-
-                  {error && <div style={{ color: '#ff4d4d', fontSize: '0.95rem' }}>{error}</div>}
-                  {success && <div style={{ color: '#4dff4d', fontSize: '0.95rem' }}>RSVP submitted! We will email you the details.</div>}
-
-                  <button 
-                    type="submit" 
-                    className="grad-btn"
-                    disabled={loading}
-                    style={{ border: 'none', cursor: loading ? 'not-allowed' : 'pointer', padding: '16px', fontSize: '16px', fontWeight: '600', opacity: loading ? 0.7 : 1 }}
-                  >
-                    {loading ? 'Submitting...' : 'Register'}
-                  </button>
-                </form>
-              </>
-            ) : (
-              <div style={{ textAlign: 'center', display: 'flex', flexDirection: 'column', gap: '20px' }}>
-                <h3 style={{ fontSize: '1.3rem', fontWeight: 500, margin: 0 }}>Become a Member</h3>
-                <p style={{ fontSize: '1rem', color: 'var(--text-muted)', lineHeight: '1.5', margin: 0 }}>
-                  You're signed in! However, this experience is members-only. Please explore membership to activate your club access.
-                </p>
-                <button 
-                  onClick={() => transitionTo('/membership', { state: { from: pathname } })}
-                  className="grad-btn"
-                  style={{ border: 'none', cursor: 'pointer', padding: '16px', fontSize: '16px', fontWeight: '600', width: '100%' }}
-                >
-                  Become a Member
-                </button>
-              </div>
-            )}
           </div>
         </div>
 
-      </section>
+        {/* Title (Top Right) */}
+        <div style={{ 
+          gridColumn: 'span 5', 
+          display: 'flex', 
+          flexDirection: 'column', 
+          justifyContent: 'center', 
+          alignItems: 'flex-end',
+          textAlign: 'right'
+        }}>
+          <h1 style={{ 
+            fontSize: 'clamp(2.5rem, 4.5vw, 4.5rem)', 
+            fontWeight: 700, 
+            lineHeight: 1, 
+            textTransform: 'uppercase', 
+            fontFamily: 'serif',
+            margin: 0
+          }}>
+            {data.title.split(' ').map((word, idx) => (
+              <React.Fragment key={idx}>
+                {word}
+                {idx !== data.title.split(' ').length - 1 && <br />}
+              </React.Fragment>
+            ))}
+          </h1>
+        </div>
 
+        {/* Description & Details (Bottom Left) */}
+        <div style={{ gridColumn: 'span 7', display: 'flex', flexDirection: 'column', gap: '24px' }}>
+          <p style={{ fontSize: '1.15rem', lineHeight: '1.6', color: '#EAEAEA' }}>
+            {data.description}
+          </p>
+          
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', fontSize: '1.1rem', color: '#fff' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+              <span style={{ fontSize: '1.4rem' }}>📍</span> <span>{data.location}</span>
+            </div>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+              <span style={{ fontSize: '1.4rem' }}>🗓️</span> <span>{data.date}</span>
+            </div>
+          </div>
+        </div>
+
+        {/* RSVP Section (Bottom Right) */}
+        <div style={{ 
+          gridColumn: 'span 5', 
+          display: 'flex', 
+          flexDirection: 'column', 
+          justifyContent: 'flex-start',
+          alignItems: 'flex-end',
+          paddingTop: '8px'
+        }}>
+          {!showForm ? (
+            <button 
+              onClick={() => setShowForm(true)}
+              style={{ 
+                backgroundColor: '#351111', 
+                color: '#fff', 
+                padding: '20px 40px', 
+                fontSize: '1.4rem', 
+                fontWeight: '600', 
+                borderRadius: '40px', 
+                border: 'none', 
+                cursor: 'pointer',
+                transition: 'transform 0.2s ease, opacity 0.2s ease'
+              }}
+              onMouseEnter={(e) => e.currentTarget.style.opacity = '0.9'}
+              onMouseLeave={(e) => e.currentTarget.style.opacity = '1'}
+              onMouseDown={(e) => e.currentTarget.style.transform = 'scale(0.98)'}
+              onMouseUp={(e) => e.currentTarget.style.transform = 'scale(1)'}
+            >
+              Reserve Your Spot
+            </button>
+          ) : (
+            <div style={{
+              backgroundColor: 'rgba(255,255,255,0.03)',
+              border: '1px solid var(--grid-color)',
+              borderRadius: '16px',
+              padding: '32px',
+              width: '100%',
+              textAlign: 'left'
+            }}>
+              <h3 style={{ fontSize: '1.3rem', marginBottom: '20px', fontWeight: 500 }}>Reserve your spot</h3>
+              <form onSubmit={handleRsvp} style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+                <input 
+                  type="text" 
+                  placeholder="Your Name" 
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  disabled={loading}
+                  required
+                  style={{ padding: '16px', borderRadius: '8px', border: '1px solid rgba(255,255,255,0.1)', background: 'rgba(255,255,255,0.05)', color: '#fff', outline: 'none' }} 
+                />
+                <input 
+                  type="email" 
+                  placeholder="Your Email" 
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  disabled={loading}
+                  required
+                  style={{ padding: '16px', borderRadius: '8px', border: '1px solid rgba(255,255,255,0.1)', background: 'rgba(255,255,255,0.05)', color: '#fff', outline: 'none' }} 
+                />
+
+                {error && <div style={{ color: '#ff4d4d', fontSize: '0.95rem' }}>{error}</div>}
+                {success && <div style={{ color: '#4dff4d', fontSize: '0.95rem' }}>RSVP submitted! We will email you the details.</div>}
+
+                <button 
+                  type="submit" 
+                  className="grad-btn"
+                  disabled={loading}
+                  style={{ border: 'none', cursor: loading ? 'not-allowed' : 'pointer', padding: '16px', fontSize: '16px', fontWeight: '600', opacity: loading ? 0.7 : 1 }}
+                >
+                  {loading ? 'Submitting...' : 'Register'}
+                </button>
+              </form>
+            </div>
+          )}
+        </div>
+
+      </div>
     </div>
   );
 }
