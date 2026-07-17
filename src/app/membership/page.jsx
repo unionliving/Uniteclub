@@ -66,7 +66,7 @@ export default function Membership() {
     },
     {
       q: "How much does Unite Membership cost?",
-      a: "Unite Membership is ₹5,000 per year. If you're staying at any Union property, your membership is included at no additional cost."
+      a: "Unite Membership is ₹500 per year. If you're staying at any Union property, your membership is included at no additional cost."
     },
     {
       q: "Can anyone become a member?",
